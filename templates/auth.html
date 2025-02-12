@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Authentication - Oaktrek</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Vollkorn:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #212A2F;
+            --secondary-color: #F7F7F7;
+            --accent-color: #4D5559;
+            --toggle-height: 44px;
+            --form-width: 440px;
+        }
+
+        body {
+            background-color: var(--secondary-color);
+            min-height: 100vh;
+            font-family: 'Vollkorn', serif;
+            color: var(--primary-color);
+        }
+
+        .brand-logo {
+            width: 200px;
+            margin-bottom: 2rem;
+        }
+
+        .auth-container {
+            min-height: 100vh;
+        }
+
+        .auth-card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+            width: 100%;
+            max-width: var(--form-width);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .toggle-container {
+            width: 100%;
+            padding: 4px;
+            position: relative;
+            background-color: #f8f8f8;
+            border-radius: 8px;
+            margin-bottom: 28px;
+        }
+
+        .toggle-options {
+            display: flex;
+            position: relative;
+            height: var(--toggle-height);
+        }
+
+        .toggle-option {
+            flex: 1;
+            text-align: center;
+            line-height: var(--toggle-height);
+            cursor: pointer;
+            position: relative;
+            z-index: 2;
+            transition: color 0.3s ease;
+            font-weight: 500;
+            font-size: 1.1rem;
+            color: var(--accent-color);
+        }
+
+        .toggle-slider {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 50%;
+            height: 100%;
+            background-color: var(--primary-color);
+            border-radius: 6px;
+            transition: transform 0.3s ease;
+        }
+
+        .auth-card.show-signup .toggle-slider {
+            transform: translateX(100%);
+        }
+
+        .toggle-option.active {
+            color: white;
+        }
+
+        .form-control {
+            height: 52px;
+            border: 1.5px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 0 18px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(33, 42, 47, 0.1);
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            border: none;
+            height: 52px;
+            font-weight: 600;
+            width: 100%;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--accent-color);
+            transform: translateY(-1px);
+        }
+
+        .form-label {
+            color: var(--primary-color);
+            font-weight: 500;
+            font-size: 1rem;
+            margin-bottom: 10px;
+        }
+
+        .auth-footer {
+            text-align: center;
+            margin-top: 24px;
+            color: var(--accent-color);
+            font-size: 0.95rem;
+        }
+
+        .auth-footer a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .auth-footer a:hover {
+            color: var(--accent-color);
+        }
+
+        .form-check-label {
+            font-size: 0.95rem;
+            color: var(--accent-color);
+        }
+
+        .form-check-input:checked {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .forms-container {
+            position: relative;
+            height: 350px;
+            overflow: hidden;
+        }
+
+        .form-section {
+            position: absolute;
+            width: 100%;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            opacity: 1;
+        }
+
+        .login-form {
+            transform: translateX(0);
+        }
+
+        .signup-form {
+            transform: translateX(100%);
+            opacity: 0;
+        }
+
+        .auth-card.show-signup .login-form {
+            transform: translateX(-100%);
+            opacity: 0;
+        }
+
+        .auth-card.show-signup .signup-form {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="auth-container d-flex align-items-center justify-content-center">
+        <div class="auth-card">
+            <div class="p-4 p-md-5">
+                <div class="text-center mb-4">
+                    <img src="/assets/logos/oaktrek_logo.png" alt="Oaktrek" class="brand-logo" width="80px">
+                </div>
+
+                <div class="toggle-container">
+                    <div class="toggle-options">
+                        <div class="toggle-option active" onclick="toggleForm('login')">Sign In</div>
+                        <div class="toggle-option" onclick="toggleForm('signup')">Sign Up</div>
+                        <div class="toggle-slider"></div>
+                    </div>
+                </div>
+
+                <div class="forms-container">
+                    <!-- Login Form -->
+                    <div class="form-section login-form">
+                        <form>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email Address</label>
+                                <input type="email" class="form-control" id="email" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Password</label>
+                                <input type="password" class="form-control" id="password" required>
+                            </div>
+                            <div class="mb-3 form-check">
+                                <input type="checkbox" class="form-check-input" id="remember">
+                                <label class="form-check-label" for="remember">Remember me</label>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Sign In</button>
+                            <div class="auth-footer">
+                                <a href="#">Forgot password?</a>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Signup Form -->
+                    <div class="form-section signup-form">
+                        <form>
+                            <div class="mb-3">
+                                <label for="signup-name" class="form-label">Full Name</label>
+                                <input type="text" class="form-control" id="signup-name" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="signup-email" class="form-label">Email Address</label>
+                                <input type="email" class="form-control" id="signup-email" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="signup-password" class="form-label">Password</label>
+                                <input type="password" class="form-control" id="signup-password" required>
+                            </div>
+                            <div class="mb-3 form-check">
+                                <input type="checkbox" class="form-check-input" id="terms">
+                                <label class="form-check-label" for="terms">I agree to the Terms and Privacy
+                                    Policy</label>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Sign Up</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function toggleForm(formType) {
+            const card = document.querySelector('.auth-card');
+            const options = document.querySelectorAll('.toggle-option');
+
+            if (formType === 'signup') {
+                card.classList.add('show-signup');
+                options[1].classList.add('active');
+                options[0].classList.remove('active');
+            } else {
+                card.classList.remove('show-signup');
+                options[0].classList.add('active');
+                options[1].classList.remove('active');
+            }
+        }
+    </script>
+</body>
+
+</html>
