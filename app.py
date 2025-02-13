@@ -7,6 +7,7 @@ import os
 app = Flask(__name__)
 basedir = os.path.abspath(os.path.dirname(__file__))
 
+app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///" + os.path.join(basedir, "default.db")  # Default DB
 app.config['SQLALCHEMY_BINDS'] = {
     'users': "sqlite:///" + os.path.join(basedir, "users.db"),
     'cart': "sqlite:///" + os.path.join(basedir, "cart.db"),
@@ -35,7 +36,6 @@ class Cart(db.Model):
     quantity = db.Column(db.Integer, default=1, nullable=False)
     price = db.Column(db.Float, nullable=False)
 
-
 class Product(db.Model):
     __bind_key__ = 'products'  # Uses products.db
     id = db.Column(db.Integer, primary_key=True)
@@ -46,6 +46,14 @@ class Product(db.Model):
     image_name = db.Column(db.String(100), nullable=False)  # Stores only the image filename
 
 
-
 with app.app_context():
     db.create_all()
+
+
+@app.route("/stores")
+def index():
+    return render_template("stores.html")
+
+
+if __name__ == '__main__':
+    app.run(debug=True)
