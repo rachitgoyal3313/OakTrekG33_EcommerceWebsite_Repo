@@ -50,10 +50,38 @@ with app.app_context():
     db.create_all()
 
 
+
 @app.route("/stores")
-def index():
+def stores():
     return render_template("stores.html")
 
+@app.route("/collections/<string:collection_name>")
+def products(collection_name):
+    # Query products based on collection name (which could be a category or gender)
+    # Using the Product model from your database
+    if collection_name.lower() in ['men', 'mens', "men's"]:
+        products = Product.query.filter_by(gender='Male').all()
+    elif collection_name.lower() in ['women', 'womens', "women's"]:
+        products = Product.query.filter_by(gender='Female').all()
+    else:
+        # If collection_name is a category (like 'everyday-sneakers')
+        # Convert URL-friendly format to database format (e.g., 'everyday-sneakers' to 'Everyday Sneakers')
+        category = collection_name.replace('-', ' ').title()
+        products = Product.query.filter_by(category=category).all()
+    
+    # Get unique categories for sidebar navigation
+    categories = db.session.query(Product.category).distinct().all()
+    categories = [cat[0] for cat in categories]  # Convert from tuples to list
+    
+    return render_template(
+        "products.html",
+        products=products,
+        collection_name=collection_name,
+        categories=categories
+    )
+@app.route('/product/<int:product_id>')
+def product_page(product_id):
+    return f"Product Page for ID {product_id}"
 
 if __name__ == '__main__':
     app.run(debug=True)
