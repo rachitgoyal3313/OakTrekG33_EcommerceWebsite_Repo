@@ -1,1 +1,6 @@
 env1
+seed_database.py
+image_creator.py
+seed_
+__pycache__
+env
