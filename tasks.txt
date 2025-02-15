@@ -1,0 +1,10 @@
+[] Sign in and Sign Up logic, and frontend for it
+[] Product page frontend and backend for it
+[] User backend
+
+
+
+Rachit: Product Page(each product)[reviews and all], carts, delivery, payments, profile
+Rachit: User(name, mail, contact, address, bday, password) database
+
+

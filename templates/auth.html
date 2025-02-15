@@ -7,13 +7,16 @@
     <title>Authentication - Oaktrek</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Vollkorn:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/header.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
     <style>
         :root {
             --primary-color: #212A2F;
             --secondary-color: #F7F7F7;
             --accent-color: #4D5559;
-            --toggle-height: 44px;
-            --form-width: 440px;
+            --toggle-height: 40px;
+            --form-width: 360px;
+            /* Reduced width */
         }
 
         body {
@@ -23,13 +26,9 @@
             color: var(--primary-color);
         }
 
-        .brand-logo {
-            width: 200px;
-            margin-bottom: 2rem;
-        }
 
         .auth-container {
-            min-height: 100vh;
+            min-height: 70vh;
         }
 
         .auth-card {
@@ -48,7 +47,7 @@
             position: relative;
             background-color: #f8f8f8;
             border-radius: 8px;
-            margin-bottom: 28px;
+            margin-bottom: 20px;
         }
 
         .toggle-options {
@@ -66,7 +65,7 @@
             z-index: 2;
             transition: color 0.3s ease;
             font-weight: 500;
-            font-size: 1.1rem;
+            font-size: 1rem;
             color: var(--accent-color);
         }
 
@@ -90,11 +89,13 @@
         }
 
         .form-control {
-            height: 52px;
+            height: 44px;
+            /* Adjusted height */
             border: 1.5px solid #e0e0e0;
             border-radius: 8px;
-            padding: 0 18px;
-            font-size: 1rem;
+            padding: 0 14px;
+            /* Adjusted padding */
+            font-size: 0.9rem;
             transition: all 0.3s ease;
         }
 
@@ -106,11 +107,12 @@
         .btn-primary {
             background-color: var(--primary-color);
             border: none;
-            height: 52px;
+            height: 44px;
+            /* Adjusted height */
             font-weight: 600;
             width: 100%;
             border-radius: 8px;
-            font-size: 1.1rem;
+            font-size: 1rem;
             transition: all 0.3s ease;
         }
 
@@ -122,15 +124,15 @@
         .form-label {
             color: var(--primary-color);
             font-weight: 500;
-            font-size: 1rem;
-            margin-bottom: 10px;
+            font-size: 0.9rem;
+            margin-bottom: 8px;
         }
 
         .auth-footer {
             text-align: center;
-            margin-top: 24px;
+            margin-top: 18px;
             color: var(--accent-color);
-            font-size: 0.95rem;
+            font-size: 0.85rem;
         }
 
         .auth-footer a {
@@ -145,7 +147,7 @@
         }
 
         .form-check-label {
-            font-size: 0.95rem;
+            font-size: 0.85rem;
             color: var(--accent-color);
         }
 
@@ -156,7 +158,7 @@
 
         .forms-container {
             position: relative;
-            height: 350px;
+            height: 300px;
             overflow: hidden;
         }
 
@@ -165,6 +167,8 @@
             width: 100%;
             transition: transform 0.3s ease, opacity 0.3s ease;
             opacity: 1;
+            padding: 0 15px;
+            /* Added padding for spacing */
         }
 
         .login-form {
@@ -189,13 +193,10 @@
 </head>
 
 <body>
+    {% include 'base.html' %}
     <div class="auth-container d-flex align-items-center justify-content-center">
         <div class="auth-card">
-            <div class="p-4 p-md-5">
-                <div class="text-center mb-4">
-                    <img src="/assets/logos/oaktrek_logo.png" alt="Oaktrek" class="brand-logo" width="80px">
-                </div>
-
+            <div class="p-3 p-md-4">
                 <div class="toggle-container">
                     <div class="toggle-options">
                         <div class="toggle-option active" onclick="toggleForm('login')">Sign In</div>
@@ -208,11 +209,11 @@
                     <!-- Login Form -->
                     <div class="form-section login-form">
                         <form>
-                            <div class="mb-3">
+                            <div class="mb-2">
                                 <label for="email" class="form-label">Email Address</label>
                                 <input type="email" class="form-control" id="email" required>
                             </div>
-                            <div class="mb-3">
+                            <div class="mb-2">
                                 <label for="password" class="form-label">Password</label>
                                 <input type="password" class="form-control" id="password" required>
                             </div>
@@ -230,15 +231,15 @@
                     <!-- Signup Form -->
                     <div class="form-section signup-form">
                         <form>
-                            <div class="mb-3">
+                            <div class="mb-2">
                                 <label for="signup-name" class="form-label">Full Name</label>
                                 <input type="text" class="form-control" id="signup-name" required>
                             </div>
-                            <div class="mb-3">
+                            <div class="mb-2">
                                 <label for="signup-email" class="form-label">Email Address</label>
                                 <input type="email" class="form-control" id="signup-email" required>
                             </div>
-                            <div class="mb-3">
+                            <div class="mb-2">
                                 <label for="signup-password" class="form-label">Password</label>
                                 <input type="password" class="form-control" id="signup-password" required>
                             </div>
@@ -254,6 +255,7 @@
             </div>
         </div>
     </div>
+    {% include 'footer.html' %}
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
