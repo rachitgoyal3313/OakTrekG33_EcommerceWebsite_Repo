@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block title_block %}
-Allbirds - Tree Dashers
+OakTrek - {{ product_name }}
 {% endblock %}
 
 {% block style_block %}
@@ -10,7 +10,7 @@ Allbirds - Tree Dashers
 <!-- Font Awesome for Icons -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 <style>
-    /* Custom Styles */
+    /* Custom Styles (same as before) */
     .thumbnail-button {
         width: 60px;
         height: 60px;
@@ -370,40 +370,26 @@ Allbirds - Tree Dashers
         <div class="col-lg-7">
             <div class="d-flex">
                 <div class="d-flex flex-column me-3">
-                    <button class="thumbnail-button mb-2 selected"
-                        onclick="selectImage(0, 'https://cdn.allbirds.com/image/fetch/q_auto,f_auto/w_1776,f_auto,q_auto/https://www.allbirds.com/cdn/shop/products/AA000QM_SHOE_ANGLE_GLOBAL_MENS_TREE_DASHER_2.0_Blizzard_Blizzard.png?v=1708038759')">
-                        <img src="https://cdn.allbirds.com/image/fetch/q_auto,f_auto/w_1776,f_auto,q_auto/https://www.allbirds.com/cdn/shop/products/AA000QM_SHOE_ANGLE_GLOBAL_MENS_TREE_DASHER_2.0_Blizzard_Blizzard.png?v=1708038759"
-                            alt="Natural Black">
+                    {% for image in [image_name, image_1, image_2, image_3, image_4, image_5] if image %}
+                    <button class="thumbnail-button mb-2 {% if loop.first %}selected{% endif %}"
+                        onclick="selectImage('{{ loop.index0 }}', '{{ image }}')">
+                        <img src="{{ url_for('static', filename='assets/products/' + image) }}" alt="{{ product_name }} - View {{ loop.index }}" width="60" height="60">
                     </button>
-                    <button class="thumbnail-button mb-2"
-                        onclick="selectImage(1, 'https://cdn.allbirds.com/image/fetch/q_auto,f_auto/w_104,f_auto,q_auto/https://www.allbirds.com/cdn/shop/products/AA000QM_SHOE_PUDDLE_GUARD_GLOBAL_MENS_TREE_DASHER_2.0_Blizzard_Blizzard.png?v=1708038759')">
-                        <img src="https://cdn.allbirds.com/image/fetch/q_auto,f_auto/w_104,f_auto,q_auto/https://www.allbirds.com/cdn/shop/products/AA000QM_SHOE_PUDDLE_GUARD_GLOBAL_MENS_TREE_DASHER_2.0_Blizzard_Blizzard.png?v=1708038759"
-                            alt="Blizzard">
-                    </button>
-                    <button class="thumbnail-button mb-2"
-                        onclick="selectImage(2, 'https://cdn.allbirds.com/image/fetch/q_auto,f_auto/w_1066,f_auto,q_auto/https://www.allbirds.com/cdn/shop/products/AA000QM_SHOE_PAIR_GLOBAL_MENS_TREE_DASHER_2.0_Blizzard_Blizzard.png?v=1708038759')">
-                        <img src="https://cdn.allbirds.com/image/fetch/q_auto,f_auto/w_1066,f_auto,q_auto/https://www.allbirds.com/cdn/shop/products/AA000QM_SHOE_PAIR_GLOBAL_MENS_TREE_DASHER_2.0_Blizzard_Blizzard.png?v=1708038759"
-                            alt="Thunder">
-                    </button>
-                    <button class="thumbnail-button mb-2"
-                        onclick="selectImage(3, 'https://cdn.allbirds.com/image/fetch/q_auto,f_auto/w_104,f_auto,q_auto/https://www.allbirds.com/cdn/shop/products/AA000QM_SHOE_BACK_GLOBAL_MENS_TREE_DASHER_2.0_Blizzard_Blizzard.png?v=1708038759')">
-                        <img src="https://cdn.allbirds.com/image/fetch/q_auto,f_auto/w_104,f_auto,q_auto/https://www.allbirds.com/cdn/shop/products/AA000QM_SHOE_BACK_GLOBAL_MENS_TREE_DASHER_2.0_Blizzard_Blizzard.png?v=1708038759"
-                            alt="Flare">
-                    </button>
+
+                    {% endfor %}
                 </div>
                 <div class="flex-grow-1 main-image-container" id="mainImageContainer">
-                    <img id="mainImage"
-                        src="https://cdn.allbirds.com/image/fetch/q_auto,f_auto/w_1776,f_auto,q_auto/https://www.allbirds.com/cdn/shop/products/AA000QM_SHOE_ANGLE_GLOBAL_MENS_TREE_DASHER_2.0_Blizzard_Blizzard.png?v=1708038759"
-                        alt="Tree Dashers" class="img-fluid rounded">
+                    <img id="mainImage" src="{{ image_1 }}" alt="{{ product_name }}" class="img-fluid rounded">
                 </div>
             </div>
         </div>
 
+
         <!-- Product Details Column -->
         <div class="col-lg-5">
             <div class="product-details">
-                <h1>Tree Dashers</h1>
-                <div class="price mb-4">$135</div>
+                <h1>{{ product_name }}</h1>
+                <div class="price mb-4">${{ price }}</div>
 
                 <!-- Color Selection -->
                 <div class="mb-4">
@@ -427,27 +413,22 @@ Allbirds - Tree Dashers
                         <a href="#" class="reviews-link">Size Guide</a>
                     </div>
                     <div class="d-flex flex-wrap gap-2">
-                        <button class="size-button" onclick="selectSize('8')">8</button>
-                        <button class="size-button" onclick="selectSize('8.5')">8.5</button>
-                        <button class="size-button" onclick="selectSize('9')">9</button>
-                        <button class="size-button" onclick="selectSize('9.5')">9.5</button>
-                        <button class="size-button" onclick="selectSize('10')">10</button>
-                        <button class="size-button" onclick="selectSize('10.5')">10.5</button>
-                        <button class="size-button" onclick="selectSize('11')">11</button>
-                        <button class="size-button" onclick="selectSize('11.5')">11.5</button>
-                        <button class="size-button" onclick="selectSize('12')">12</button>
-                        <button class="size-button" onclick="selectSize('13')">13</button>
-                        <button class="size-button" onclick="selectSize('14')">14</button>
+                        {% for size in range(8, 15) %}
+                        <button class="size-button" onclick="selectSize('{{ size }}')">{{ size }}</button>
+                        {% if size != 14 %}
+                        <button class="size-button" onclick="selectSize('{{ size }}.5')">{{ size }}.5</button>
+                        {% endif %}
+                        {% endfor %}
                     </div>
                 </div>
 
                 <!-- Add to Cart -->
-                <!-- <button class="btn btn-dark w-100 py-3 add-to-cart mb-4">Add to Cart</button> -->
 
-                <form action="{{ url_for('add_to_cart') }}" method="POST">
-                    <input type="hidden" name="product_name" value="Tree Dashers">
-                    <input type="hidden" name="price" value="135">
+                <form action="{{ url_for('cart') }}" method="POST">
+                    <input type="hidden" name="product_name" value="{{ product_name }}">
+                    <input type="hidden" name="price" value="{{ price }}">
                     <input type="hidden" name="quantity" value="1">
+                    <input type="hidden" name="product_id" value="{{ id }}">
                     <button type="submit" class="btn btn-dark w-100 py-3 add-to-cart mb-4">Add to Cart</button>
                 </form>
 
@@ -655,7 +636,7 @@ Allbirds - Tree Dashers
 <section class="reviews-section">
     <!-- Reviews Header -->
     <div class="reviews-header">
-        <h2>Men's Tree Dasher 2 Reviews</h2>
+        <h2>Men's {{product_name}} Reviews</h2>
         <div class="d-flex align-items-center justify-content-center">
             <span class="rating-big">4.6</span>
             <div class="stars">
@@ -712,7 +693,7 @@ Allbirds - Tree Dashers
                 <i class="fas fa-star"></i>
             </div>
             <h3 class="review-title">Fantastically Comfortable</h3>
-            <p class="review-content">I'm a first time AllBirds buyer with wide feet. These Tree Dashers are like
+            <p class="review-content">I'm a first time OakTrek buyer with wide feet. These {{product_name}} are like
                 butter on your feet. The top fabric is soft, breathable and stretches to fit the top of your foot
                 and the sole has a wide foot base that is fantastic. I just love them and have asked for several
                 more pair for Christmas!</p>
@@ -728,8 +709,8 @@ Allbirds - Tree Dashers
                 <i class="fas fa-star"></i>
                 <i class="fas fa-star"></i>
             </div>
-            <h3 class="review-title">Allbirds All The Way!</h3>
-            <p class="review-content">After discovering AllBirds, they are all I wear now. I love how comfortable
+            <h3 class="review-title">OakTrek All The Way!</h3>
+            <p class="review-content">After discovering OakTrek, they are all I wear now. I love how comfortable
                 they are and the ability to clean them.</p>
             <img src="/api/placeholder/100/100" alt="Review image" class="review-image">
         </div>
@@ -782,26 +763,26 @@ Allbirds - Tree Dashers
 
 <!-- Allbirds Approach Section -->
 <div class="container mt-5">
-    <h2 class="mb-5">The Allbirds Approach</h2>
+    <h2 class="mb-5">The OakTrek Approach</h2>
     <div class="row g-4">
         <div class="col-md-4">
             <h4>Wear-All-Day Comfort</h4>
-            <p>Lightweight, bouncy, and wildly comfortable. Allbirds shoes make any outing feel effortless. Slip in,
+            <p>Lightweight, bouncy, and wildly comfortable. OakTrek shoes make any outing feel effortless. Slip in,
                 lace up, or slide them on and enjoy the comfy support.</p>
-            <a href="#" class="text-decoration-underline">Learn More</a>
+            <!-- <a href="#" class="text-decoration-underline">Learn More</a> -->
         </div>
         <div class="col-md-4">
             <h4>Sustainability In Every Step</h4>
             <p>From materials to transport, we're working to reduce our carbon footprint to near zero. Holding
                 ourselves accountable and striving for climate goals isn't a 30-year goal—it's now.</p>
-            <a href="#" class="text-decoration-underline">Learn More</a>
+            <!-- <a href="#" class="text-decoration-underline">Learn More</a> -->
         </div>
         <div class="col-md-4">
             <h4>Materials From The Earth</h4>
             <p> We replace petroleum-based petroleum-based synthetics with natural alternatives wherever we can. Like
                 using wool,
                 tree fiber, and sugar cane. They're soft, breathable, and better for the planet—win, win, win.</p>
-            <a href="#" class="text-decoration-underline">Learn More</a>
+            <!-- <a href="#" class="text-decoration-underline">Learn More</a> -->
         </div>
     </div>
 </div>
@@ -812,9 +793,10 @@ Allbirds - Tree Dashers
 <script>
     // JavaScript for Image Selection
     let selectedImage = 0;
-    function selectImage(index) {
+
+    function selectImage(index, imageUrl) {
         selectedImage = index;
-        document.getElementById('mainImage').src = `/api/placeholder/600/600`;
+        document.getElementById('mainImage').src = imageUrl;
         document.querySelectorAll('.thumbnail-button').forEach((btn, i) => {
             btn.classList.toggle('selected', i === index);
         });
@@ -822,6 +804,7 @@ Allbirds - Tree Dashers
 
     // JavaScript for Size Selection
     let selectedSize = null;
+
     function selectSize(size) {
         selectedSize = size;
         document.querySelectorAll('.size-button').forEach(btn => {
