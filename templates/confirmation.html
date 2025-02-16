@@ -1,12 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'base.html' %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Order Confirmation - Oaktrek</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Vollkorn:wght@400;500;600;700&display=swap" rel="stylesheet">
+{% block style_block %}
     <style>
         :root {
             --primary-color: #1C2327;
@@ -24,6 +18,7 @@
             overflow-x: hidden;
         }
 
+        /* Keep all existing styles... */
         .floating-leaf {
             position: fixed;
             width: 40px;
@@ -34,18 +29,11 @@
         }
 
         @keyframes float {
-            0% {
-                transform: translateY(-5vh) translateX(0) rotate(0deg);
-            }
-
-            100% {
-                transform: translateY(105vh) translateX(100vw) rotate(360deg);
-            }
+            0% { transform: translateY(-5vh) translateX(0) rotate(0deg); }
+            100% { transform: translateY(105vh) translateX(100vw) rotate(360deg); }
         }
 
-        .logo {
-            max-width: 150px;
-        }
+        .logo { max-width: 150px; }
 
         .confirmation-container {
             max-width: 800px;
@@ -126,18 +114,6 @@
             color: white;
         }
 
-        .order-number {
-            font-size: 1.1rem;
-            color: var(--text-color);
-            margin-bottom: 8px;
-        }
-
-        .thank-you-message {
-            font-size: 1.5rem;
-            font-weight: 500;
-            margin-bottom: 24px;
-        }
-
         .order-details {
             background-color: var(--secondary-color);
             border-radius: 8px;
@@ -186,6 +162,11 @@
             color: white;
         }
 
+        .progress_step{
+            display: flex;
+            justify-content: space-between;
+        }
+
         .delivery-info {
             margin-top: 24px;
             padding: 24px;
@@ -193,26 +174,28 @@
             border-radius: 8px;
         }
     </style>
-</head>
+{% endblock %}
 
-<body>
+{% block main_block %}
     <div id="leaves-container"></div>
 
     <div class="confirmation-container">
-        <div class="text-center mb-4">
-            <img src="/assets/logos/oaktrek_logo.png" alt="Oaktrek" class="logo">
-        </div>
+        <!-- <div class="text-center mb-4">
+            <img src="{{ url_for('static', filename='images/oaktrek_logo.png') }}" alt="Oaktrek" class="logo">
+        </div> -->
 
         <div class="progress-bar">
             <div class="progress-line"></div>
-            <div class="progress-step completed">
-                <div class="progress-step-text">Cart</div>
-            </div>
-            <div class="progress-step completed">
-                <div class="progress-step-text">Checkout</div>
-            </div>
-            <div class="progress-step completed">
-                <div class="progress-step-text">Confirmation</div>
+            <div class="progress_step">
+                <div class="progress-step completed">
+                    <div class="progress-step-text">Cart</div>
+                </div>
+                <div class="progress-step completed">
+                    <div class="progress-step-text">Checkout</div>
+                </div>
+                <div class="progress-step completed">
+                    <div class="progress-step-text">Confirmation</div>
+                </div>
             </div>
         </div>
 
@@ -222,37 +205,30 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                 </svg>
             </div>
-            <div class="order-number">Order #OT283945</div>
+            <div class="order-number">Order #{{ order_number }}</div>
             <div class="thank-you-message">Thank you for your order!</div>
             <p class="text-muted">We've received your order and will begin processing it right away.</p>
-            <p class="text-muted">A confirmation email has been sent to john.doe@example.com</p>
+            <p class="text-muted">A confirmation email has been sent to {{ user.email }}</p>
 
             <div class="order-details">
                 <h3 class="mb-4">Order Summary</h3>
+                {% for item in order_items %}
                 <div class="product-mini">
-                    <div class="product-mini-image">
-                        <img src="/api/placeholder/60/60" alt="Wool Runner" class="img-fluid">
-                    </div>
+                    <!-- <div class="product-mini-image">
+                        <img src="{{ url_for('static', filename='images/' + item.image) }}" alt="{{ item.name }}" class="img-fluid">
+                    </div> -->
                     <div class="flex-grow-1">
-                        <div class="fw-500">Wool Runner</div>
-                        <div class="text-muted">Quantity: 1</div>
-                        <div>$98.00</div>
+                        <div class="fw-500">{{ item.name }}</div>
+                        <div class="text-muted">Quantity: {{ item.quantity }}</div>
+                        <div>${{ "%.2f"|format(item.price) }}</div>
                     </div>
                 </div>
-                <div class="product-mini">
-                    <div class="product-mini-image">
-                        <img src="/api/placeholder/60/60" alt="Tree Dasher" class="img-fluid">
-                    </div>
-                    <div class="flex-grow-1">
-                        <div class="fw-500">Tree Dasher</div>
-                        <div class="text-muted">Quantity: 1</div>
-                        <div>$125.00</div>
-                    </div>
-                </div>
+                {% endfor %}
+
                 <div class="mt-4">
                     <div class="detail-row">
                         <span>Subtotal</span>
-                        <span>$223.00</span>
+                        <span>${{ "%.2f"|format(subtotal) }}</span>
                     </div>
                     <div class="detail-row">
                         <span>Shipping</span>
@@ -260,29 +236,30 @@
                     </div>
                     <div class="detail-row">
                         <span>Tax</span>
-                        <span>Included</span>
+                        <span>${{ "%.2f"|format(tax) }}</span>
                     </div>
                     <hr>
                     <div class="detail-row">
                         <strong>Total</strong>
-                        <strong>$223.00</strong>
+                        <strong>${{ "%.2f"|format(total) }}</strong>
                     </div>
                 </div>
             </div>
 
             <div class="delivery-info">
                 <h3 class="mb-3">Delivery Information</h3>
-                <p class="mb-1">John Doe</p>
-                <p class="mb-1">123 Main Street</p>
-                <p class="mb-1">Apt 4B</p>
-                <p class="mb-1">New York, NY 10001</p>
-                <p class="mb-0">United States</p>
+                <p class="mb-1">{{ user.name }}</p>
+                <p class="mb-1">{{ shipping_address.street }}</p>
+                <p class="mb-1">{{ shipping_address.city }}, {{ shipping_address.state }} {{ shipping_address.zipcode }}</p>
+                <p class="mb-0">India</p>
             </div>
 
-            <a href="/" class="continue-shopping-btn">Continue Shopping</a>
+            <a href="{{ url_for('products', collection_name='mens') }}" class="continue-shopping-btn">Continue Shopping</a>
         </div>
     </div>
+{% endblock %}
 
+{% block script_block %}
     <script>
         // Create animated leaves
         const leavesContainer = document.getElementById('leaves-container');
@@ -295,7 +272,4 @@
             leavesContainer.appendChild(leaf);
         }
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-
-</html>
+{% endblock %}
