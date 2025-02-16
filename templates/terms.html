@@ -1,0 +1,208 @@
+{% extends "base.html" %}
+
+{% block styles %}
+<style>
+    /* Terms & Privacy Page Specific Styles */
+    .hero-section {
+        background-color: #111;
+        color: white;
+        padding: 4rem 0;
+        text-align: center;
+    }
+
+    .section {
+        padding: 4rem 0;
+    }
+
+    .policy-card {
+        border: none;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s, box-shadow 0.3s;
+        margin-bottom: 2rem;
+        border-radius: 8px;
+        padding: 2rem;
+        background-color: white;
+    }
+
+    .policy-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .policy-section {
+        margin-bottom: 3rem;
+    }
+
+    .policy-section h2 {
+        color: #111;
+        margin-bottom: 1.5rem;
+        font-weight: bold;
+    }
+
+    .policy-section h3 {
+        color: #333;
+        margin: 1.5rem 0 1rem;
+        font-size: 1.25rem;
+    }
+
+    .policy-section p {
+        color: #444;
+        margin-bottom: 1rem;
+        line-height: 1.6;
+    }
+
+    .policy-section ul {
+        color: #666;
+        margin-bottom: 1.5rem;
+        padding-left: 1.5rem;
+    }
+
+    .policy-section ul li {
+        margin-bottom: 0.75rem;
+        position: relative;
+    }
+
+    .policy-nav {
+        position: sticky;
+        top: 2rem;
+        padding: 1.5rem;
+        background-color: #f8f8f8;
+        border-radius: 8px;
+    }
+
+    .policy-nav ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .policy-nav li {
+        margin-bottom: 0.75rem;
+    }
+
+    .policy-nav a {
+        color: #444;
+        text-decoration: none;
+        transition: color 0.3s;
+    }
+
+    .policy-nav a:hover {
+        color: #111;
+    }
+
+    .contact-section {
+        background-color: #f8f8f8;
+        padding: 3rem 0;
+        text-align: center;
+        margin-top: 3rem;
+    }
+
+    .contact-section .lead {
+        color: #444;
+        max-width: 800px;
+        margin: 0 auto 1.5rem;
+    }
+</style>
+{% endblock %}
+<br><br>
+{% block title %}Terms, Privacy & Accessibility - Oaktrek{% endblock %}
+
+{% block main_block %}
+<div class="hero-section">
+    <div class="container">
+        <h1>Terms, Privacy & Accessibility</h1>
+        <p class="lead">Our commitment to transparency and inclusive design</p>
+    </div>
+</div>
+
+<div class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="policy-nav">
+                    <h4 class="mb-3">Quick Navigation</h4>
+                    <ul>
+                        <li><a href="#terms">Terms of Service</a></li>
+                        <li><a href="#privacy">Privacy Policy</a></li>
+                        <li><a href="#accessibility">Accessibility</a></li>
+                        <li><a href="#contact">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-9">
+                <div class="policy-card">
+                    <div id="terms" class="policy-section">
+                        <h2>Terms of Service</h2>
+                        <p>Welcome to Oaktrek. By accessing our website and services, you agree to these terms.</p>
+
+                        <h3>Use of Services</h3>
+                        <p>Our services are provided for personal and commercial use under the following conditions:</p>
+                        <ul>
+                            <li>You must be at least 18 years old to make purchases</li>
+                            <li>Account information must be accurate and current</li>
+                            <li>You are responsible for maintaining account security</li>
+                        </ul>
+
+                        <h3>Product Policies</h3>
+                        <p>Our products are subject to the following terms:</p>
+                        <ul>
+                            <li>30-day return policy for unworn items</li>
+                            <li>Warranty coverage for manufacturing defects</li>
+                            <li>Shipping policies vary by region</li>
+                        </ul>
+                    </div>
+
+                    <div id="privacy" class="policy-section">
+                        <h2>Privacy Policy</h2>
+                        <p>Your privacy is important to us. Here's how we collect and use your information:</p>
+
+                        <h3>Data Collection</h3>
+                        <ul>
+                            <li>Personal information for order processing</li>
+                            <li>Website usage data for improvement</li>
+                            <li>Marketing preferences</li>
+                        </ul>
+
+                        <h3>Data Protection</h3>
+                        <p>We implement various security measures to protect your personal information:</p>
+                        <ul>
+                            <li>Secure SSL encryption</li>
+                            <li>Regular security audits</li>
+                            <li>Limited employee data access</li>
+                        </ul>
+                    </div>
+
+                    <div id="accessibility" class="policy-section">
+                        <h2>Accessibility</h2>
+                        <p>Oaktrek is committed to making our website accessible to everyone:</p>
+
+                        <h3>Our Standards</h3>
+                        <ul>
+                            <li>WCAG 2.1 Level AA compliance</li>
+                            <li>Keyboard navigation support</li>
+                            <li>Screen reader compatibility</li>
+                            <li>Color contrast optimization</li>
+                        </ul>
+
+                        <h3>Accessibility Features</h3>
+                        <ul>
+                            <li>Alt text for all images</li>
+                            <li>Clear heading structure</li>
+                            <li>Consistent navigation</li>
+                            <li>Resizable text support</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div id="contact" class="contact-section">
+                    <h2>Need Assistance?</h2>
+                    <p class="lead">If you have any questions about our terms, privacy policy, or accessibility
+                        features, please don't hesitate to contact us.</p>
+                    <a href="#" class="btn btn-dark">Contact Support</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br><br><br>
+{% endblock %}
