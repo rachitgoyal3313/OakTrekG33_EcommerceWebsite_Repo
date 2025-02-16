@@ -379,7 +379,7 @@ OakTrek - {{ product_name }}
                     {% endfor %}
                 </div>
                 <div class="flex-grow-1 main-image-container" id="mainImageContainer">
-                    <img id="mainImage" src="{{ image_1 }}" alt="{{ product_name }}" class="img-fluid rounded">
+                    <img id="mainImage" src="{{ url_for('static', filename='assets/products/' + image_name) }}" alt="{{ product_name }}" class="img-fluid rounded">
                 </div>
             </div>
         </div>
@@ -796,11 +796,13 @@ OakTrek - {{ product_name }}
 
     function selectImage(index, imageUrl) {
         selectedImage = index;
-        document.getElementById('mainImage').src = imageUrl;
+        document.getElementById('mainImage').src = "{{ url_for('static', filename='assets/products/') }}" + imageUrl;
+
         document.querySelectorAll('.thumbnail-button').forEach((btn, i) => {
             btn.classList.toggle('selected', i === index);
         });
     }
+
 
     // JavaScript for Size Selection
     let selectedSize = null;
