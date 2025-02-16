@@ -148,7 +148,7 @@
                 </div>
 
                 <!-- Brand Logo -->
-                <a class="navbar-brand mx-auto" href="#"><img class="Logo"
+                <a class="navbar-brand mx-auto" href="{{ url_for('index' ) }}"><img class="Logo"
                         src="{{ url_for('static', filename='assets/logos/oaktrek_logo-no_bg.png') }}" alt=""></a>
 
                 <!-- Right Navigation -->
@@ -161,29 +161,27 @@
                                 <div class="dropdown-content">
                                     <div class="dropdown-section">
                                         <h6>OUR IMPACT</h6>
-                                        <a href="#">Sustainable Materials</a>
-                                        <a href="#">Carbon Footprint</a>
-                                        <a href="#">Circularity</a>
-                                        <a href="#">Regenerative Agriculture</a>
-                                        <a href="#">Waste Reduction</a>
-                                        <a href="#">Shop with Purpose</a>
+                                        <a href="{{ url_for('adidasxoaktrek' ) }}">Adidas X OakTrek</a>
+                                        <a href="{{ url_for('footprint' ) }}">Carbon Footprint</a>
+                                        <a href="{{ url_for('regenerative' ) }}">Regenerative Agriculture</a>
+                                        <a href="{{ url_for('responsibleenergy' ) }}">Waste Reduction</a>
                                     </div>
                                     <div class="dropdown-section">
                                         <h6>OUR INITIATIVES</h6>
-                                        <a href="#">Eco-Friendly Innovations</a>
-                                        <a href="#">Recycled Materials</a>
-                                        <a href="#">Sustainable Factories</a>
-                                        <a href="#">B Corp Certification</a>
-                                        <a href="#">Community Engagement</a>
-                                        <a href="#">Giving Back</a>
+                                        <a href="{{ url_for('renewable' ) }}">Eco-Friendly Innovations</a>
+                                        <a href="{{ url_for('responsibleenergy' ) }}">Recycled Materials</a>
+                                        <a href="{{ url_for('sustainability' ) }}">Sustainable Factories</a>
+                                        <a href="{{ url_for('bcorp' ) }}">B Corp Certification</a>
+                                        <!-- <a href="#">Community Engagement</a>
+                                        <a href="#">Giving Back</a> -->
                                     </div>
                                     <div class="dropdown-section">
                                         <h6>LEARN MORE</h6>
-                                        <a href="#">Our Sustainability Report</a>
-                                        <a href="#">Our Journey</a>
-                                        <a href="#">How We Reduce Emissions</a>
-                                        <a href="#">Join the Movement</a>
-                                        <a href="#">FAQs</a>
+                                        <a href="{{ url_for('sustainability' ) }}">Our Sustainability Report</a>
+                                        <a href="{{ url_for('our_story' ) }}">Our Journey</a>
+                                        <a href="{{ url_for('our_materials' ) }}">Our Materials</a>
+                                        <a href="{{ url_for('login' ) }}">Join the Movement</a>
+                                        <a href="{{ url_for('faq' ) }}">FAQs</a>
                                     </div>
                                     <!-- <div class="dropdown-section featured-section">
                                         <h6>FEATURED</h6>

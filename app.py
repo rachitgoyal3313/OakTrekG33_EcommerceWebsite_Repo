@@ -247,6 +247,22 @@ def delete_address(address_id):
         db.session.rollback()
         return jsonify({'message': f'Error deleting address: {str(e)}'}), 400
 
+@app.route('/add_phone', methods=['POST'])
+@login_required
+def add_phone():
+    phone = request.form.get('phone')
+    if not phone:
+        return jsonify({'message': 'Phone number is required'}), 400
+
+    try:
+        current_user.phone = phone
+        db.session.commit()
+        return jsonify({'message': 'Phone number added successfully!'})
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({'message': f'Error adding phone number: {str(e)}'}), 400
+
+
 # Product and Cart Routes
 @app.route("/collections/<string:collection_name>")
 def products(collection_name):
@@ -329,6 +345,29 @@ def cart():
 
     return render_template("cart.html", cart_items=cart_with_images)
 
+@app.route('/update_profile', methods=['POST'])
+@login_required
+def update_profile():
+    name = request.form.get('name')
+    email = request.form.get('email')
+
+    if not all([name, email]):
+        return jsonify({'message': 'Name and email are required'}), 400
+
+    # Check if the new email already exists for another user
+    existing_user = User.query.filter(User.email == email, User.id != current_user.id).first()
+    if existing_user:
+        return jsonify({'message': 'Email already exists for another user.'}), 400
+
+    try:
+        current_user.name = name
+        current_user.email = email
+        db.session.commit()
+        return jsonify({'message': 'Profile updated successfully!'})
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({'message': f'Error updating profile: {str(e)}'}), 400
+
 
 
 @app.route("/update_cart", methods=["POST"])
@@ -374,9 +413,9 @@ def coming_soon():
 def our_story():
     return render_template('our_story.html')
 
-@app.route('/oaktree_help')
-def oaktree_help():
-    return render_template('oaktree_help.html')
+@app.route('/oaktrek_help')
+def oaktrek_help():
+    return render_template('oaktrek_help.html')
 
 @app.route('/our_materials')
 def our_materials():
@@ -386,9 +425,59 @@ def our_materials():
 def returns():
     return render_template('returns.html')
 
+@app.route('/terms')
+def terms():
+    return render_template('terms.html')
+
+
 @app.route("/stores")
 def stores():
     return render_template("stores.html")
+
+@app.route("/")
+def index():
+    return render_template("index.html")
+
+@app.route("/adidasxoaktrek")
+def adidasxoaktrek():
+    return render_template("adidasxoaktrek.html")
+
+@app.route("/foorprint")
+def footprint():
+    return render_template("footprint.html")
+
+@app.route("/carbonoffsets")
+def carbonoffsets():
+    return render_template("carbonoffsets.html")
+
+@app.route("/bcorp")
+def bcorp():
+    return render_template("bcorp.html")
+
+@app.route("/moonshot")
+def moonshot():
+    return render_template("moonshot.html")
+
+@app.route("/mothernature")
+def mothernature():
+    return render_template("mothernature.html")
+
+@app.route("/regenerative")
+def regenerative():
+    return render_template("regenerative.html")
+
+@app.route("/renewable")
+def renewable():
+    return render_template("renewable.html")
+
+@app.route("/responsibleenergy")
+def responsibleenergy():
+    return render_template("responsibleenergy.html")
+
+@app.route("/sustainability")
+def sustainability():
+    return render_template("sustainability.html")
+
 
 @app.route("/checkout")
 @login_required  # Add this decorator to ensure only logged-in users can access checkout
