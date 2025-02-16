@@ -268,9 +268,9 @@ def coming_soon():
 def our_story():
     return render_template('our_story.html') 
  
-@app.route('/oaktree_help')
-def oaktree_help():
-    return render_template('oaktree_help.html') 
+@app.route('/oaktrek_help')
+def oaktrek_help():
+    return render_template('oaktrek_help.html') 
  
 @app.route('/our_materials')
 def our_materials():
