@@ -5,3 +5,4 @@ seed_
 __pycache__
 env
 products.db
+instance
