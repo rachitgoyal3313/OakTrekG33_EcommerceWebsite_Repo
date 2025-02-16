@@ -41,8 +41,8 @@ class Address(db.Model):
     name = db.Column(db.String(100), nullable=False)
     street = db.Column(db.String(100), nullable=False)
     city = db.Column(db.String(50), nullable=False)
-    state = db.Column(db.String(2), nullable=False)
-    zipcode = db.Column(db.String(10), nullable=False)
+    state = db.Column(db.String(100), nullable=False)
+    zipcode = db.Column(db.Integer, nullable=False)
     is_default = db.Column(db.Boolean, default=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
@@ -279,6 +279,16 @@ def our_materials():
 @app.route('/returns')
 def returns():
     return render_template('returns.html')
+
+@app.route('/terms')
+def terms():
+    return render_template('terms.html')
+
+# @app.route('/')
+# def home():
+#     return render_template('index.html')
+
+
 
 # Create Database
 with app.app_context():
