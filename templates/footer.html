@@ -89,7 +89,7 @@
             <ul>
                 <li style="color: white;">1-888-963-8944</li>
                 <li style="color: white;">1-814-251-9966</li>
-                <li><a href="{{ url_for('oaktree_help') }}">help@oaktrek.com</a></li>
+                <li><a href="{{ url_for('oaktrek_help') }}">help@oaktrek.com</a></li>
                 <li><a href="{{ url_for('returns') }}">Returns/Exchanges</a></li>
                 <li><a href="{{ url_for('faq') }}">FAQ/Contact Us</a></li>
             </ul>
@@ -118,11 +118,11 @@
 
 
     <div class="footer-bottom">
-        <p>© 2024 oaktrek, Inc. All Rights Reserved. <a href="#" style="color:white;">Terms</a>,
-            <a href="#" style="color:white;">Privacy</a> &
-            <a href="#" style="color:white;">Accessibility</a>
+        <p>© 2024 oaktrek, Inc. All Rights Reserved. <a href="{{ url_for('terms') }}" style="color:white;">Terms</a>,
+            <a href="{{ url_for('terms') }}" style="color:white;">Privacy</a> &
+            <a href="{{ url_for('terms') }}" style="color:white;">Accessibility</a>
         </p>
-        <p><a href="#" style="color:white;">Do Not Sell My Personal Information</a></p>
+        <p><a href="{{ url_for('terms') }}" style="color:white;">Do Not Sell My Personal Information</a></p>
     </div>
 
 </body>
