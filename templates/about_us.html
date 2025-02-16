@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Oaktrek</title>
+    <link rel="icon" type="image/x-icon" href="/static/assets/logos/leaf.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Vollkorn:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #292f32;
+            --secondary-color: #F7F7F7;
+            --accent-color: #4D5559;
+        }
+
+        body {
+            font-family: 'Vollkorn', serif;
+            background-color: white;
+            color: var(--primary-color);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        .about-section {
+            padding: 5rem 2rem;
+            text-align: center;
+        }
+
+        .section-title {
+            margin-bottom: 3rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--primary-color);
+        }
+
+        .team-container {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            max-width: 100%;
+            margin: 0 auto;
+            overflow-x: auto;
+            padding: 1rem;
+        }
+
+        .team-card {
+            background: linear-gradient(135deg, var(--secondary-color), white);
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: fadeInUp 0.8s ease forwards;
+            opacity: 0;
+            min-width: 280px;
+            max-width: 280px;
+            height: 450px;
+            /* Fixed height for uniformity */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .team-card:hover {
+            transform: scale(1.05) translateY(-10px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .team-member-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin: 0 auto 1.5rem;
+            object-fit: cover;
+            border: 3px solid var(--primary-color);
+            transition: transform 0.3s ease;
+        }
+
+        .team-card:hover .team-member-image {
+            transform: scale(1.1);
+        }
+
+        .team-member-name {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+
+        .team-member-role {
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+            font-style: italic;
+        }
+
+        .team-member-bio {
+            color: var(--accent-color);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+            flex-grow: 1;
+            /* Ensures bio takes up remaining space */
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .social-button {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+            font-size: 0.9rem;
+            white-space: nowrap;
+        }
+
+        .linkedin {
+            background-color: #0077B5;
+        }
+
+        .github {
+            background-color: #333;
+        }
+
+        .resume {
+            background-color: var(--primary-color);
+        }
+
+        .social-button:hover {
+            opacity: 0.9;
+            color: white;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+
+        /* Make the layout responsive */
+        @media (max-width: 1200px) {
+            .team-container {
+                padding: 1rem 2rem;
+                justify-content: flex-start;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .footer-content {
+                flex-direction: column;
+                gap: 2rem;
+                text-align: center;
+            }
+
+            .team-container {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    {% extends 'base.html' %}
+
+    {% block main_block %}
+    <main>
+        <section class="about-section">
+            <h1 class="section-title">Meet Our Team</h1>
+
+            <div class="team-container">
+                <!-- Team Member 1 -->
+                <div class="team-card">
+                    <img src="https://via.placeholder.com/150" alt="Rachit Goyal" class="team-member-image">
+                    <h3 class="team-member-name">Rachit Goyal</h3>
+                    <p class="team-member-role">Full Stack Developer</p>
+                    <p class="team-member-bio">Passionate about creating seamless user experiences and scalable
+                        full-stack solutions.</p>
+                    <div class="social-links">
+                        <a href="www.linkedin.com/in/rachit-goyal-1a4403301" class="social-button linkedin">
+                            <i class="fab fa-linkedin-in"></i> LinkedIn
+                        </a>
+                        <a href="https://github.com/rachitgoyal3313/" class="social-button github">
+                            <i class="fab fa-github"></i> GitHub
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Team Member 2 -->
+                <div class="team-card">
+                    <img src="https://via.placeholder.com/150" alt="Divyansh Chawla" class="team-member-image">
+                    <h3 class="team-member-name">Divyansh Chawla</h3>
+                    <p class="team-member-role">Full Stack Developer</p>
+                    <p class="team-member-bio">Expert in both frontend and backend technologies, ensuring smooth and
+                        efficient development processes.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-button linkedin">
+                            <i class="fab fa-linkedin-in"></i> LinkedIn
+                        </a>
+                        <a href="https://github.com/Divy13ansh" class="social-button github">
+                            <i class="fab fa-github"></i> GitHub
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Team Member 3 -->
+                <div class="team-card">
+                    <img src="https://via.placeholder.com/150" alt="Pushkar Sharma" class="team-member-image">
+                    <h3 class="team-member-name">Pushkar Sharma</h3>
+                    <p class="team-member-role">Frontend Developer</p>
+                    <p class="team-member-bio">Skilled in crafting responsive designs and interactive user interfaces.
+                    </p>
+                    <div class="social-links">
+                        <a href="https://www.linkedin.com/in/pushkar-sharma-80146b332?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
+                            class="social-button linkedin">
+                            <i class="fab fa-linkedin-in"></i> LinkedIn
+                        </a>
+                        <a href="https://github.com/PushkarSharma18" class="social-button github">
+                            <i class="fab fa-github"></i> GitHub
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Team Member 4 -->
+                <div class="team-card">
+                    <img src="https://via.placeholder.com/150" alt="Pawani" class="team-member-image">
+                    <h3 class="team-member-name">Pawani</h3>
+                    <p class="team-member-role">UI/UX Designer</p>
+                    <p class="team-member-bio">Creative designer with a keen eye for detail and intuitive user
+                        interfaces.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-button linkedin">
+                            <i class="fab fa-linkedin-in"></i> LinkedIn
+                        </a>
+                        <a href="#" class="social-button github">
+                            <i class="fab fa-github"></i> GitHub
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    {% endblock %}
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

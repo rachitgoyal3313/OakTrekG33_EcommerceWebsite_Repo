@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title_block %} {% endblock %}</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="/static/assets/logos/leaf.png">
     <link rel="stylesheet" href="{{ url_for('static',filename='css/header.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
@@ -37,7 +38,6 @@
                                         <a href="#">High Tops</a>
                                         <a href="#">Hiking</a>
                                         <a href="#">Sale</a>
-                                        <a href="#">Shop all</a>
                                     </div>
                                     <div class="dropdown-section">
                                         <h6>BESTSELLERS</h6>
@@ -53,15 +53,15 @@
                                     </div>
                                     <div class="dropdown-section">
                                         <h6>APPAREL & MORE</h6>
-                                        <a href="#">Socks</a>
-                                        <a href="#">Tees</a>
-                                        <a href="#">Sweats</a>
-                                        <a href="#">Underwear</a>
-                                        <a href="#">Bags</a>
-                                        <a href="#">Hats</a>
-                                        <a href="#">Insoles</a>
-                                        <a href="#">Lace Kits</a>
-                                        <a href="#">Gift Cards</a>
+                                        <a href="{{ url_for('coming_soon' ) }}">Socks</a>
+                                        <a href="{{ url_for('coming_soon' ) }}">Tees</a>
+                                        <a href="{{ url_for('coming_soon' ) }}">Sweats</a>
+                                        <a href="{{ url_for('coming_soon' ) }}">Underwear</a>
+                                        <a href="{{ url_for('coming_soon' ) }}">Bags</a>
+                                        <a href="{{ url_for('coming_soon' ) }}">Hats</a>
+                                        <a href="{{ url_for('coming_soon' ) }}">Insoles</a>
+                                        <a href="{{ url_for('coming_soon' ) }}">Lace Kits</a>
+                                        <a href="{{ url_for('coming_soon' ) }}">Gift Cards</a>
                                     </div>
                                     <div class="dropdown-section featured-section">
                                         <h6>FEATURED</h6>
@@ -96,7 +96,6 @@
                                         <a href="#">High Tops</a>
                                         <a href="#">Hiking</a>
                                         <a href="#">Sale</a>
-                                        <a href="#">Shop all</a>
                                     </div>
                                     <div class="dropdown-section">
                                         <h6>BESTSELLERS</h6>
@@ -108,21 +107,18 @@
                                         <a href="#">Wool Runner Go</a>
                                         <a href="#">Wool Runner</a>
                                         <a href="#">Canvas Piper</a>
-                                        <a href="#">Shop all</a>
                                     </div>
                                     <div class="dropdown-section">
                                         <h6>APPAREL & MORE</h6>
-                                        <a href="#">Socks</a>
-                                        <a href="#">Tees</a>
-                                        <a href="#">Leggings</a>
-                                        <a href="#">Sweats</a>
-                                        <a href="#">Dresses</a>
-                                        <a href="#">Sports Bras</a>
-                                        <a href="#">Bags</a>
-                                        <a href="#">Hats</a>
-                                        <a href="#">Insoles</a>
-                                        <a href="#">Lace Kits</a>
-                                        <a href="#">Gift Cards</a>
+                                        <a href="{{ url_for('coming_soon' ) }}">Socks</a>
+                                        <a href="{{ url_for('coming_soon' ) }}">Tees</a>
+                                        <a href="{{ url_for('coming_soon' ) }}">Sweats</a>
+                                        <a href="{{ url_for('coming_soon' ) }}">Underwear</a>
+                                        <a href="{{ url_for('coming_soon' ) }}">Bags</a>
+                                        <a href="{{ url_for('coming_soon' ) }}">Hats</a>
+                                        <a href="{{ url_for('coming_soon' ) }}">Insoles</a>
+                                        <a href="{{ url_for('coming_soon' ) }}">Lace Kits</a>
+                                        <a href="{{ url_for('coming_soon' ) }}">Gift Cards</a>
                                     </div>
                                     <div class="dropdown-section featured-section">
                                         <h6>FEATURED</h6>
@@ -143,10 +139,10 @@
                             </div>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Socks</a>
+                            <a class="nav-link" href="{{ url_for('coming_soon' ) }}">Socks</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">New Arrivals</a>
+                            <a class="nav-link" href="{{ url_for('coming_soon' ) }}">New Arrivals</a>
                         </li>
                     </ul>
                 </div>
@@ -209,39 +205,7 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ url_for('stores' ) }}">Stores</a>
-                            <!-- <div id="storesDropdown" class="custom-dropdown">
-                                <div class="dropdown-content">
-                                    <div class="dropdown-section">
-                                        <h6>FIND A STORE</h6>
-                                        <a href="#">Store Locator</a>
-                                        <a href="#">Flagship Stores</a>
-                                        <a href="#">Upcoming Locations</a>
-                                        <a href="#">Pop-Up Shops</a>
-                                        <a href="#">Store Events</a>
-                                    </div>
-                                    <div class="dropdown-section">
-                                        <h6>EXPERIENCE</h6>
-                                        <a href="#">In-Store Services</a>
-                                        <a href="#">Try Before You Buy</a>
-                                        <a href="#">Recycling & Returns</a>
-                                        <a href="#">Personalized Shopping</a>
-                                        <a href="#">Community Events</a>
-                                    </div>
-                                    <div class="dropdown-section featured-section">
-                                        <h6>FEATURED</h6>
-                                        <div class="featured-items">
-                                            <div class="featured-item">
-                                                <img src="store-experience.jpg" alt="Store Experience">
-                                                <span>Store Experience</span>
-                                            </div>
-                                            <div class="featured-item">
-                                                <img src="store-events.jpg" alt="Store Events">
-                                                <span>Upcoming Store Events</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> -->
+
                         </li>
                     </ul>
                 </div>
@@ -253,15 +217,19 @@
                         <circle cx="11" cy="11" r="8" />
                         <line x1="21" y1="21" x2="16.65" y2="16.65" />
                     </svg>
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-                        <circle cx="12" cy="7" r="4" />
-                    </svg>
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                        <circle cx="12" cy="12" r="10" />
-                        <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
-                        <line x1="12" y1="17" x2="12.01" y2="17" />
-                    </svg>
+                    <a href="{{ url_for('profile') }}">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                            <circle cx="12" cy="7" r="4" />
+                        </svg>
+                    </a>
+                    <a href="{{ url_for('faq') }}">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <circle cx="12" cy="12" r="10" />
+                            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
+                            <line x1="12" y1="17" x2="12.01" y2="17" />
+                        </svg>
+                    </a>
                     <div class="cart-icon-container">
                         <a href="{{ url_for('cart') }}" class="cart-icon-container">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">

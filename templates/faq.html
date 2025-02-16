@@ -1,216 +1,354 @@
-<!DOCTYPE html>
-<html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Oaktrek Approach & FAQ</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="icon" type="image/x-icon" href="/static/assets/logos/leaf.png">
+</head>
+{% extends "base.html" %}
 
+{% block title_block %}Oaktrek Approach & FAQ{% endblock %}
 
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+{% block style_block %}
+<style>
+    body {
+        font-family: 'Poppins', sans-serif;
+        background-color: white;
+        color: black;
+    }
 
-    <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: white;
-            color: black;
-        }
+    .help-section {
+        background-color: #1a1a1a;
+        color: white;
+        text-align: center;
+        padding: 50px 20px;
+        margin-top: 80px;
+    }
 
+    .help-section h1 {
+        font-size: 2.5rem;
+        font-weight: 700;
+    }
 
-        .help-section {
-            background-color: #1a1a1a;
-            color: white;
-            text-align: center;
-            padding: 50px 20px;
-        }
+    .help-section p {
+        font-size: 1.1rem;
+        margin: 5px 0;
+        font-weight: 400;
+    }
 
-        .help-section h1 {
-            font-size: 2.5rem;
-            font-weight: 700;
-        }
+    .approach-section {
+        max-width: 1100px;
+        margin: 50px auto;
+        text-align: left;
+        padding: 0 20px;
+    }
 
-        .help-section p {
-            font-size: 1.1rem;
-            margin: 5px 0;
-            font-weight: 400;
-        }
+    .approach-section h1 {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 30px;
+    }
 
+    .approach-container {
+        display: flex;
+        justify-content: space-between;
+        gap: 30px;
+        flex-wrap: wrap;
+    }
 
-        .approach-section {
-            max-width: 1100px;
-            margin: 50px auto;
-            text-align: left;
-        }
+    .approach-box {
+        width: 32%;
+        min-width: 300px;
+    }
 
-        .approach-section h1 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 30px;
-        }
+    .approach-box h3 {
+        font-size: 1.3rem;
+        font-weight: 600;
+        margin-bottom: 10px;
+    }
 
-        .approach-container {
-            display: flex;
-            justify-content: space-between;
-            gap: 30px;
+    .approach-box p {
+        font-size: 1rem;
+        font-weight: 400;
+        color: #444;
+    }
+
+    .approach-box a {
+        text-decoration: none;
+        color: black;
+        font-weight: 600;
+    }
+
+    .approach-box a:hover {
+        color: blue;
+    }
+
+    .faq-section {
+        max-width: 900px;
+        margin: 50px auto;
+        padding: 0 20px;
+    }
+
+    .faq-section h2 {
+        font-size: 2rem;
+        font-weight: 700;
+        text-align: center;
+        margin-bottom: 40px;
+    }
+
+    .faq-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    .faq-column {
+        width: 48%;
+        margin-bottom: 30px;
+    }
+
+    .faq-column h3 {
+        font-size: 1.3rem;
+        font-weight: 600;
+        margin-bottom: 15px;
+        border-bottom: 2px solid #000;
+        padding-bottom: 5px;
+    }
+
+    .faq-question {
+        cursor: pointer;
+        padding: 15px;
+        margin: 5px 0;
+        background-color: #f8f8f8;
+        border-radius: 4px;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .faq-question:hover {
+        background-color: #f0f0f0;
+        transform: translateX(5px);
+    }
+
+    .faq-answer {
+        max-height: 0;
+        overflow: hidden;
+        transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        background-color: #fff;
+        border-left: 3px solid #1a1a1a;
+        margin: 0;
+        padding: 0 15px;
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    .faq-question.active+.faq-answer {
+        max-height: 500px;
+        padding: 15px;
+        margin: 5px 0 15px 0;
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .faq-question::after {
+        content: '+';
+        position: absolute;
+        right: 15px;
+        top: 50%;
+        transform: translateY(-50%) rotate(0deg);
+        transition: transform 0.3s ease;
+        font-weight: bold;
+    }
+
+    .faq-question.active::after {
+        transform: translateY(-50%) rotate(45deg);
+    }
+
+    .faq-question::before {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background-color: #1a1a1a;
+        transition: width 0.3s ease;
+    }
+
+    .faq-question:hover::before {
+        width: 100%;
+    }
+
+    .faq-question.active {
+        background-color: #f0f0f0;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    @media (max-width: 768px) {
+        .faq-column {
+            width: 100%;
         }
 
         .approach-box {
-            width: 32%;
+            width: 100%;
         }
+    }
 
-        .approach-box h3 {
-            font-size: 1.3rem;
-            font-weight: 600;
-            margin-bottom: 10px;
-        }
+    /* Remove footer from main content since it's in base template */
+    #main-footer {
+        display: none;
+    }
+</style>
+{% endblock %}
 
-        .approach-box p {
-            font-size: 1rem;
-            font-weight: 400;
-            color: #444;
-        }
+{% block main_block %}
+<div class="help-section">
+    <h1>How Can We Help?</h1>
+    <p>Send us a text: <strong>1-814-251-9966</strong></p>
+    <p>Give us a call: <strong>1-888-963-8944</strong></p>
+    <p>Sunday - Saturday: 5AM - 5PM PST</p>
+</div>
 
-        .approach-box a {
-            text-decoration: none;
-            color: black;
-            font-weight: 600;
-        }
-
-        .approach-box a:hover {
-            color: blue;
-        }
-
-
-        .faq-section {
-            max-width: 900px;
-            margin: 50px auto;
-        }
-
-        .faq-section h2 {
-            font-size: 2rem;
-            font-weight: 700;
-            text-align: center;
-            margin-bottom: 40px;
-        }
-
-        .faq-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-        }
-
-        .faq-column {
-            width: 48%;
-            margin-bottom: 30px;
-        }
-
-        .faq-column h3 {
-            font-size: 1.3rem;
-            font-weight: 600;
-            margin-bottom: 15px;
-            border-bottom: 2px solid #000;
-            padding-bottom: 5px;
-        }
-
-        .faq-column div {
-            font-size: 1rem;
-            margin: 10px 0;
-            font-weight: 400;
-        }
-
-        .faq-section a {
-            text-decoration: none;
-            color: black;
-            font-weight: 600;
-        }
-
-        .faq-section a:hover {
-            color: blue;
-        }
-    </style>
-</head>
-
-<body>
-
-
-    <div class="help-section">
-        <h1>How Can We Help?</h1>
-        <p>Send us a text: <strong>1-814-251-9966</strong></p>
-        <p>Give us a call: <strong>1-888-963-8944</strong></p>
-        <p>Sunday - Saturday: 5AM - 5PM PST</p>
-    </div>
-
-
-    <div class="approach-section">
-        <h1>The Oaktrek Approach</h1>
-        <div class="approach-container">
-            <div class="approach-box">
-                <h3>Wear-All-Day Comfort</h3>
-                <p>Lightweight, bouncy, and wildly comfortable,Oaktrek shoes make any outing feel effortless. Slip in,
-                    lace up, or slide them on and enjoy the comfy support.</p>
-                <a href="#">Learn More</a>
-            </div>
-            <div class="approach-box">
-                <h3>Sustainability In Every Step</h3>
-                <p>From materials to transport, we’re working to reduce our carbon footprint to near zero. Holding
-                    ourselves accountable and striving for climate goals isn’t a 30-year goal—it’s now.</p>
-                <a href="#">Learn More</a>
-            </div>
-            <div class="approach-box">
-                <h3>Materials From The Earth</h3>
-                <p>We replace petroleum-based synthetics with natural alternatives wherever we can. Like using wool,
-                    tree fiber, and sugar cane. They’re soft, breathable, and better for the planet—win, win, win.</p>
-                <a href="#">Learn More</a>
-            </div>
+<div class="approach-section">
+    <h1>The Oaktrek Approach</h1>
+    <div class="approach-container">
+        <div class="approach-box">
+            <h3>Wear-All-Day Comfort</h3>
+            <p>Lightweight, bouncy, and wildly comfortable, Oaktrek shoes make any outing feel effortless. Slip in,
+                lace up, or slide them on and enjoy the comfy support.</p>
+            <a href="#">Learn More</a>
+        </div>
+        <div class="approach-box">
+            <h3>Sustainability In Every Step</h3>
+            <p>From materials to transport, we're working to reduce our carbon footprint to near zero. Holding
+                ourselves accountable and striving for climate goals isn't a 30-year goal—it's now.</p>
+            <a href="#">Learn More</a>
+        </div>
+        <div class="approach-box">
+            <h3>Materials From The Earth</h3>
+            <p>We replace petroleum-based synthetics with natural alternatives wherever we can. Like using wool,
+                tree fiber, and sugar cane. They're soft, breathable, and better for the planet—win, win, win.</p>
+            <a href="#">Learn More</a>
         </div>
     </div>
+</div>
 
-    .
-    <div class="faq-section">
-        <h2>Frequently Asked Questions</h2>
-        <div class="faq-container">
-            <div class="faq-column">
-                <h3>PRODUCTS & FIT</h3>
-                <div>Do Oaktrek run true to size?</div>
-                <div>Will my shoes stretch?</div>
-                <div>Are Oaktrek good for flat feet?</div>
-                <div>Are Oaktrek waterproof?</div>
-                <div>Can you wash Oaktrek insoles?</div>
-                <div>Are Oaktrek washable?</div>
+<div class="faq-section">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-container">
+        <!-- Previous FAQ content remains the same -->
+        <div class="faq-column">
+            <h3>PRODUCTS & FIT</h3>
+            <div class="faq-question">Do Oaktrek run true to size?</div>
+            <div class="faq-answer">Yes, Oaktrek shoes generally run true to size. However, we recommend going up half a
+                size if you're between sizes or prefer a roomier fit. Our shoes are designed to provide a snug,
+                comfortable fit that molds to your foot over time.</div>
+
+            <div class="faq-question">Will my shoes stretch?</div>
+            <div class="faq-answer">Oaktrek shoes will naturally conform to your foot shape over time, but they won't
+                stretch significantly. The wool material is naturally flexible and will create a custom fit while
+                maintaining its structure.</div>
+
+            <div class="faq-question">Are Oaktrek good for flat feet?</div>
+            <div class="faq-answer">Many customers with flat feet find our shoes comfortable due to the supportive
+                insole and cushioned midsole. However, if you require specific orthotic support, our insoles are
+                removable to accommodate custom orthotics.</div>
+
+            <div class="faq-question">Are Oaktrek waterproof?</div>
+            <div class="faq-answer">While our shoes are not fully waterproof, many styles feature water-repellent
+                treatments that help protect against light rain and splashes. For complete water protection, we
+                recommend our weather-resistant collection.</div>
+        </div>
+
+        <div class="faq-column">
+            <h3>RETURNS & EXCHANGES</h3>
+            <div class="faq-question">Can I return or exchange an in-store purchase online?</div>
+            <div class="faq-answer">Yes, you can return or exchange items purchased in-store through our online return
+                portal. Simply visit our returns page and enter your order number. You'll receive a prepaid shipping
+                label for your return.</div>
+
+            <div class="faq-question">How do I make a gift exchange?</div>
+            <div class="faq-answer">Gift exchanges can be processed without the original receipt. The recipient can use
+                the gift order number or scan the QR code on the gift receipt to initiate an exchange for a different
+                size or style.</div>
+
+            <div class="faq-question">What is Oaktrek's return policy?</div>
+            <div class="faq-answer">We offer a 30-day return policy for unworn items in their original packaging.
+                Returns are free, and refunds are processed to the original payment method within 5-10 business days of
+                receiving your return.</div>
+        </div>
+
+        <div class="faq-column">
+            <h3>ORDERS, SHIPPING & TRACKING</h3>
+            <div class="faq-question">Do you offer gift wrapping?</div>
+            <div class="faq-answer">Yes, we offer complimentary gift wrapping on all orders. During checkout, select the
+                gift wrapping option and you can add a personalized message that will be printed on a custom card.</div>
+
+            <div class="faq-question">Can I expedite my order?</div>
+            <div class="faq-answer">Yes, we offer expedited shipping options at checkout. Choose from 2-day or overnight
+                shipping. Orders placed before 1 PM PST will ship the same day.</div>
+
+            <div class="faq-question">How do you ship?</div>
+            <div class="faq-answer">We ship via USPS and FedEx within the United States. Standard shipping is free for
+                orders over $75 and typically arrives within 5-7 business days. International shipping is available to
+                select countries.</div>
+        </div>
+
+        <div class="faq-column">
+            <h3>PAYMENTS & REFUNDS</h3>
+            <div class="faq-question">When can I expect my refund?</div>
+            <div class="faq-answer">Once we receive your return, refunds are processed within 1-2 business days. It may
+                take an additional 3-7 business days for the funds to appear in your account, depending on your bank.
             </div>
 
-            <div class="faq-column">
-                <h3>RETURNS & EXCHANGES</h3>
-                <div>Can I return or exchange an in-store purchase online?</div>
-                <div>How do I make a gift exchange?</div>
-                <div>What is Oaktrek return policy?</div>
-            </div>
+            <div class="faq-question">Does Oaktrek offer discount codes?</div>
+            <div class="faq-answer">We occasionally offer promotional discounts to email subscribers and during special
+                events. We also have ongoing discounts for students, military personnel, and healthcare workers (ID
+                verification required).</div>
 
-            <div class="faq-column">
-                <h3>ORDERS, SHIPPING & TRACKING</h3>
-                <div>Do you offer gift wrapping?</div>
-                <div>Can I expedite my order?</div>
-                <div>How do you ship?</div>
-                <div>What if I want to cancel or change my order?</div>
-            </div>
+            <div class="faq-question">How do I send a gift card?</div>
+            <div class="faq-answer">Digital gift cards can be purchased online and sent instantly via email. Physical
+                gift cards are also available and can be mailed with a personalized message. Gift cards never expire and
+                can be used both online and in-store.</div>
+        </div>
 
-            <div class="faq-column">
-                <h3>PAYMENTS & REFUNDS</h3>
-                <div><a href="#">When can I expect my refund?</a></div>
-                <div>Does Oaktrek offer discount codes or coupons?</div>
-                <div>How do I send a gift card?</div>
-            </div>
+        <div class="faq-column" style="width: 100%;">
+            <h3>COMPANY</h3>
+            <div class="faq-question">What is your commitment to sustainability?</div>
+            <div class="faq-answer">Sustainability is at the core of everything we do. We use renewable materials like
+                merino wool and eucalyptus fiber, maintain carbon-neutral operations, and partner with regenerative
+                farming practices. Our packaging is 100% recycled and recyclable, and we're working towards zero-waste
+                manufacturing by 2025.</div>
 
-            <div class="faq-column" style="width: 100%;">
-                <h3>COMPANY</h3>
-                <div>What is your commitment to sustainability?</div>
-                <div>Where are Oaktrek products made?</div>
-                <div>How do you ensure fair and safe working conditions at factories?</div>
-            </div>
+            <div class="faq-question">Where are Oaktrek products made?</div>
+            <div class="faq-answer">Our products are manufactured in partner facilities across Portugal, Vietnam, and
+                South Korea. We carefully select manufacturing partners who meet our strict quality and ethical
+                standards.</div>
+
+            <div class="faq-question">How do you ensure fair working conditions?</div>
+            <div class="faq-answer">We maintain strict ethical manufacturing standards and regularly audit our
+                facilities. All our manufacturing partners are required to provide fair wages, safe working conditions,
+                and reasonable working hours. We're proud to be certified by Fair Labor Association.</div>
         </div>
     </div>
+</div>
+{% endblock %}
 
-</body>
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const questions = document.querySelectorAll('.faq-question');
 
-</html>
+        questions.forEach(question => {
+            question.addEventListener('click', function () {
+                // Toggle active class on the clicked question
+                this.classList.toggle('active');
+
+                // Close other questions
+                questions.forEach(q => {
+                    if (q !== this) {
+                        q.classList.remove('active');
+                    }
+                });
+            });
+        });
+    });
+</script>
+{% endblock %}

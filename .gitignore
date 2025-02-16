@@ -4,3 +4,4 @@ image_creator.py
 seed_
 __pycache__
 env
+products.db

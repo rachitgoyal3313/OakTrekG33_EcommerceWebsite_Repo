@@ -44,10 +44,19 @@ class Product(db.Model):
     gender = db.Column(db.String(10), nullable=False)  # Example: 'Male', 'Female', 'Unisex'
     price = db.Column(db.Float, nullable=False)
     image_name = db.Column(db.String(100), nullable=False)  # Stores only the image filename
+    image_1 = db.Column(db.String(100))
+    image_2 = db.Column(db.String(100))
+    image_3 = db.Column(db.String(100))
+    image_4 = db.Column(db.String(100))
+    image_5 = db.Column(db.String(100))
+
 
 
 with app.app_context():
-    db.create_all()
+    db.create_all()  # Creates tables in the default database (default.db)
+    # db.create_all(bind='users')   # Creates tables in users.db
+    # db.create_all(bind='cart')    # Creates tables in cart.db
+    # db.create_all(bind='products') # Creates tables in products.db
 
 
 
@@ -79,9 +88,28 @@ def products(collection_name):
         collection_name=collection_name,
         categories=categories
     )
-@app.route('/product/<int:product_id>')
-def product_page(product_id):
-    return f"Product Page for ID {product_id}"
+
+@app.route("/collections/<string:collection_name>/<string:product_name>")
+def product_page(collection_name, product_name):  # Accept collection_name
+    product = db.session.query(Product).filter_by(product_name=product_name).first_or_404()
+    product_data = {
+        "product_name": product.product_name,
+        "category": product.category,
+        "gender": product.gender,
+        "price": product.price,
+        "image_name": product.image_name,
+        "image_1": product.image_1,
+        "image_2": product.image_2,
+        "image_3": product.image_3,
+        "image_4": product.image_4,
+        "image_5": product.image_5
+    }
+    return render_template("product2.html", **product_data)
+
+
+@app.route("/cart")
+def cart():
+    return render_template("cart.html")
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -1,0 +1,153 @@
+{% extends "base.html" %}
+{% block styles %}
+<style>
+    /* Help Page Specific Styles */
+    .hero-section {
+        background-color: #111;
+        color: white;
+        padding: 6rem 0;
+        text-align: center;
+    }
+
+    .section {
+        padding: 4rem 0;
+        background-color: #fff;
+    }
+
+    .contact-form {
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    .form-control {
+        border: 1px solid #ddd;
+        padding: 12px;
+        margin-bottom: 15px;
+        border-radius: 4px;
+    }
+
+    .form-control:focus {
+        border-color: #111;
+        box-shadow: none;
+    }
+
+    .btn-dark {
+        background-color: #111;
+        border: none;
+        padding: 12px 30px;
+        transition: background-color 0.3s;
+    }
+
+    .btn-dark:hover {
+        background-color: #333;
+    }
+
+    .accordion-button {
+        background-color: #f8f8f8;
+        color: #111;
+    }
+
+    .accordion-button:not(.collapsed) {
+        background-color: #111;
+        color: white;
+    }
+
+    .accordion-button:focus {
+        box-shadow: none;
+        border-color: #111;
+    }
+
+    .quick-support {
+        background-color: #f8f8f8;
+        padding: 20px;
+        border-radius: 4px;
+    }
+
+    .quick-support h3 {
+        color: #111;
+        margin-bottom: 20px;
+    }
+
+    .quick-support p {
+        font-size: 18px;
+        color: #333;
+    }
+</style>
+{% endblock %}
+
+{% block title %}Help - Oaktrek{% endblock %}
+
+
+{% block main_block %}
+<!-- Help Page Content -->
+<div class="hero-section">
+    <div class="container">
+        <h1>How Can We Help?</h1>
+        <p class="lead">We're here to assist you with any questions or concerns</p>
+    </div>
+</div>
+
+<div class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="contact-form">
+                    <h3>Contact Us</h3>
+                    <form>
+                        <div class="mb-3">
+                            <label class="form-label">Name</label>
+                            <input type="text" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Email</label>
+                            <input type="email" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Message</label>
+                            <textarea class="form-control" rows="5"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-dark">Send Message</button>
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <h3>Quick Support</h3>
+                <p>Call us: 1-888-963-8944</p>
+                <p>Email: help@oaktrek.com</p>
+                <h4 class="mt-4">FAQ</h4>
+                <div class="accordion" id="faqAccordion">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#faq1">
+                                How do I track my order?
+                            </button>
+                        </h2>
+                        <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                You can track your order by logging into your account or using the tracking number
+                                provided in your shipping confirmation email.
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Add more FAQ items as needed -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    // Create animated leaves
+    const leavesContainer = document.getElementById('leaves-container');
+    for (let i = 0; i < 10; i++) {
+        const leaf = document.createElement('div');
+        leaf.className = 'floating-leaf';
+        leaf.style.left = Math.random() * 100 + 'vw';
+        leaf.style.animationDelay = Math.random() * 20 + 's';
+        leaf.innerHTML = `<svg viewBox="0 0 100 100"><path d="M50 10 C60 30 80 40 90 60 C80 80 60 90 50 95 C40 90 20 80 10 60 C20 40 40 30 50 10" fill="currentColor"/></svg>`;
+        leavesContainer.appendChild(leaf);
+    }
+</script>
+{% endblock %}

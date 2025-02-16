@@ -1,0 +1,140 @@
+{% block styles %}
+<style>
+    /* Story Page Specific Styles */
+    .hero-section {
+        background-color: #111;
+        color: white;
+        padding: 6rem 0;
+        text-align: center;
+    }
+
+    .section {
+        padding: 4rem 0;
+    }
+
+    .story-image {
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s;
+    }
+
+    .story-image:hover {
+        transform: scale(1.02);
+    }
+
+    .story-content h2 {
+        color: #111;
+        margin-bottom: 1.5rem;
+        font-weight: bold;
+    }
+
+    .story-content p {
+        color: #444;
+        font-size: 1.1rem;
+        line-height: 1.8;
+        margin-bottom: 1.5rem;
+    }
+
+    .mission-section {
+        background-color: #f8f8f8;
+        padding: 4rem 0;
+        margin-top: 3rem;
+    }
+
+    .values-section {
+        text-align: center;
+        padding: 4rem 0;
+    }
+
+    .value-item {
+        padding: 2rem;
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        margin-bottom: 2rem;
+    }
+
+    .value-item h3 {
+        color: #111;
+        margin-bottom: 1rem;
+    }
+
+    .timeline {
+        position: relative;
+        padding: 2rem 0;
+    }
+
+    .timeline::before {
+        content: '';
+        position: absolute;
+        left: 50%;
+        width: 2px;
+        height: 100%;
+        background-color: #111;
+    }
+</style>
+{% endblock %}
+{% block title %}Our Story - Oaktrek{% endblock %}
+
+
+{% extends "base.html" %}
+
+{% block main_block %}
+<!-- Our Story Page Content -->
+<div class="hero-section">
+    <div class="container">
+        <h1>Our Story</h1>
+        <p class="lead">Crafting comfort and style since 2010</p>
+    </div>
+</div>
+
+<div class="section">
+    <div class="container">
+        <div class="row align-items-center mb-5">
+            <div class="col-md-6">
+                <img src="{{ url_for('static', filename='images/story-1.jpg') }}" alt="Our Story"
+                    class="img-fluid rounded">
+            </div>
+            <div class="col-md-6">
+                <h2>The Journey Begins</h2>
+                <p>Oaktrek started with a simple idea: create comfortable, sustainable footwear that looks great and
+                    feels even better. Our founders believed that style shouldn't come at the expense of comfort or our
+                    planet.</p>
+                <p>Today, we continue to innovate and push boundaries in sustainable fashion, creating products that our
+                    customers love and our planet needs.</p>
+            </div>
+        </div>
+
+        <div class="row align-items-center mt-5">
+            <div class="col-md-6 order-md-2">
+                <img src="{{ url_for('static', filename='images/story-2.jpg') }}" alt="Our Mission"
+                    class="img-fluid rounded">
+            </div>
+            <div class="col-md-6 order-md-1">
+                <h2>Our Mission</h2>
+                <p>At Oaktrek, we believe in creating products that make a difference. Every pair of shoes we create is
+                    a step towards a more sustainable future. We're committed to using eco-friendly materials and
+                    ethical manufacturing processes.</p>
+                <p>Our dedication to sustainability isn't just about the environment - it's about creating a better
+                    future for everyone. We work closely with our manufacturing partners to ensure fair labor practices
+                    and support local communities.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    // Create animated leaves
+    const leavesContainer = document.getElementById('leaves-container');
+    for (let i = 0; i < 10; i++) {
+        const leaf = document.createElement('div');
+        leaf.className = 'floating-leaf';
+        leaf.style.left = Math.random() * 100 + 'vw';
+        leaf.style.animationDelay = Math.random() * 20 + 's';
+        leaf.innerHTML = `<svg viewBox="0 0 100 100"><path d="M50 10 C60 30 80 40 90 60 C80 80 60 90 50 95 C40 90 20 80 10 60 C20 40 40 30 50 10" fill="currentColor"/></svg>`;
+        leavesContainer.appendChild(leaf);
+    }
+</script>
+
+{% endblock %}
