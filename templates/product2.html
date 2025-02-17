@@ -257,6 +257,12 @@ CSS-- >
         transition: transform 0.2s;
     }
 
+    .shoe-card img {
+        min-height: 300px;
+        min-height: 400px;
+
+    }
+
     .shoe-card:hover {
         transform: translateY(-5px);
     }
@@ -713,7 +719,7 @@ CSS-- >
 <section class="reviews-section">
     <!-- Reviews Header -->
     <div class="reviews-header">
-        <h2>Men's {{product_name}} Reviews</h2>
+        <h2> {{product_name}} Reviews</h2>
         <div class="d-flex align-items-center justify-content-center">
             <span class="rating-big">4.6</span>
             <div class="stars">
@@ -803,11 +809,11 @@ CSS-- >
         <div class="scroll-wrapper">
             <div class="d-flex" style="gap: 1.5rem;">
                 <!-- Shoe Card 1 -->
-                <div class="shoe-card" style="min-width: 300px;">
+                <div class="shoe-card">
                     <a class="product_redirect"
                         href="{{url_for('product_page', collection_name='everyday-sneakers', product_name = 'Tree Flyer')}}">
                         <img src="{{ url_for('static', filename='assets/products/tree-dasher-2-blue.png') }}"
-                            alt="Men's Tree Flyer 2 - Medium Grey" class="img-fluid mb-3">
+                            alt="Men's Tree Flyer 2 - Medium Grey" class="img-fluid mb-3" style="min-height: 260px;">
                         <h5>Men's Tree Flyer 2</h5>
                         <p class="text-muted">Medium Grey</p>
                         <p class="fw-bold">$160</p>
@@ -815,11 +821,11 @@ CSS-- >
                 </div>
 
                 <!-- Shoe Card 2 -->
-                <div class="shoe-card" style="min-width: 300px;">
+                <div class="shoe-card">
                     <a class="product_redirect"
                         href="{{url_for('product_page', collection_name='everyday-sneakers', product_name = 'Tree Dasher 2')}}">
                         <img src="{{ url_for('static', filename='assets/products/tree-flyer-black.png') }}"
-                            alt="Tree Dasher 2 - Blizzard" class="img-fluid mb-3">
+                            alt="Tree Dasher 2 - Blizzard" class="img-fluid mb-3" style="min-height: 260px;">
                         <h5>Tree Dasher 2</h5>
                         <p class="text-muted">Blizzard</p>
                         <p class="fw-bold">$135</p>
@@ -827,11 +833,11 @@ CSS-- >
                 </div>
 
                 <!-- Shoe Card 3 -->
-                <div class="shoe-card" style="min-width: 300px;">
+                <div class="shoe-card">
                     <a class="product_redirect"
                         href="{{url_for('product_page', collection_name='everyday-sneakers', product_name = 'Tree Runner Go')}}">
                         <img src="{{ url_for('static', filename='assets/products/tree-runner-classic-black.png') }}"
-                            alt="Men's Tree Runners - Mist" class="img-fluid mb-3">
+                            alt="Men's Tree Runners - Mist" class="img-fluid mb-3" style="min-height: 260px;">
                         <h5>Men's Tree Runners</h5>
                         <p class="text-muted">Mist</p>
                         <p class="fw-bold">$98</p>
@@ -839,11 +845,11 @@ CSS-- >
                 </div>
 
                 <!-- Shoe Card 4 -->
-                <div class="shoe-card" style="min-width: 300px;">
+                <div class="shoe-card">
                     <a class="product_redirect"
                         href="{{url_for('product_page', collection_name='everyday-sneakers', product_name = 'Tree Lounger')}}">
                         <img src="{{ url_for('static', filename='assets/products/tree-lounger-gray.png') }}"
-                            alt="Men's Tree Lounger - Natural Black" class="img-fluid mb-3">
+                            alt="Men's Tree Lounger - Natural Black" class="img-fluid mb-3" style="min-height: 260px;">
                         <h5>Men's Tree Lounger</h5>
                         <p class="text-muted">Natural Black</p>
                         <p class="fw-bold">$98</p>
@@ -851,11 +857,11 @@ CSS-- >
                 </div>
 
                 <!-- Shoe Card 5 -->
-                <div class="shoe-card" style="min-width: 300px;">
+                <div class="shoe-card">
                     <a class="product_redirect"
                         href="{{url_for('product_page', collection_name='everyday-sneakers', product_name = 'Cloud Loafer')}}">
-                        <img src="{{ url_for('static', filename='assets/products/cloud-loafer-brown.png') }}"
-                            alt="Men's Cloud Loafer - Natural Black" class="img-fluid mb-3">
+                        <img sty src="{{ url_for('static', filename='assets/products/cloud-loafer-brown.png') }}"
+                            alt="Men's Cloud Loafer - Natural Black" class="img-fluid mb-3" style="min-height: 260px;">
                         <h5>Men's Cloud Loafer</h5>
                         <p class="text-muted">Natural Black</p>
                         <p class="fw-bold">$105</p>

@@ -265,7 +265,7 @@ def add_phone():
 
 # Product and Cart Routes
 @app.route("/collections/<string:collection_name>")
-def products(collection_name):
+def products(collection_name):   
     if collection_name.lower() in ['men', 'mens', "men's"]:
         products = Product.query.filter_by(gender='Male').all()
     elif collection_name.lower() in ['women', 'womens', "women's"]:
@@ -442,7 +442,7 @@ def index():
 def adidasxoaktrek():
     return render_template("adidasxoaktrek.html")
 
-@app.route("/foorprint")
+@app.route("/footprint")
 def footprint():
     return render_template("footprint.html")
 

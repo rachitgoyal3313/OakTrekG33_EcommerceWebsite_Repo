@@ -1,7 +1,6 @@
 {% extends 'base.html'%}
 
 {% block style_block %}
-
 <style>
   @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap");
 
@@ -15,6 +14,47 @@
     padding: 0;
   }
 
+  /* New sustainability-specific styles */
+  .sustainability-hero {
+    background-color: #333;
+    color: white;
+    padding: 80px 20px;
+    text-align: center;
+  }
+
+  .sustainability-hero h1 {
+    font-size: 3.5rem;
+    margin-bottom: 30px;
+  }
+
+  .sustainability-content {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 40px 20px;
+  }
+
+  .progress-section {
+    background-color: #f5f5f5;
+    padding: 60px 20px;
+    text-align: center;
+    margin: 40px 0;
+  }
+
+  .progress-section h2 {
+    font-size: 2.8rem;
+    margin-bottom: 30px;
+  }
+
+  .stats-box {
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    margin: 20px auto;
+    max-width: 700px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Your existing styles */
   .emailnotify {
     background-color: rgba(235, 235, 235, 0.738);
     width: 90%;
@@ -126,6 +166,14 @@
     .childpara {
       width: 100%;
     }
+
+    .sustainability-hero h1 {
+      font-size: 2.5rem;
+    }
+
+    .progress-section h2 {
+      font-size: 2rem;
+    }
   }
 
   @media (max-width: 480px) {
@@ -141,8 +189,27 @@
 {% endblock %}
 
 {% block main_block %}
+<!-- New sustainability hero section -->
+<section class="sustainability-hero">
+  <h1>Nothing is everything.</h1>
+  <div class="sustainability-content">
+    <p>And when we say nothing, we mean nothing. As in zero. Zilch. Nada. See, when we unveiled the OakTrek Flight Plan
+      in 2021, that was a big part of our commitment: cutting our carbon footprint in half by the end of 2025, then
+      reducing it to near zero by 2030.</p>
+  </div>
+</section>
 
+<!-- New progress section -->
+<section class="progress-section">
+  <h2>And not for nothing, we're on track.</h2>
+  <div class="stats-box">
+    <p>With a 22% drop in our average product carbon footprint in 2023, we're closing in on our 2025 Flight Plan goal.
+      This is a game of inches and we're big on near term, tangible progress. It's just one small part—okay, big part—
+      of our mission to reverse climate change through better business.</p>
+  </div>
+</section>
 
+<!-- Your existing email notification section -->
 <div class="emailnotify">
   <div>
     <h2><b>Sign in the Loop of Our Progress</b></h2>
@@ -161,6 +228,7 @@
   </div>
 </div>
 
+<!-- Your existing initiatives section -->
 <h2 id="initiativeheading"><b>OakTrek Sustainability Initiatives</b></h2>
 <div class="initiatives">
   <div class="member">
@@ -188,6 +256,7 @@
       </div>
     </a>
   </div>
+
   <div class="member">
     <a href="{{url_for('mothernature')}}" class="disnon">
       <div class="card">
@@ -200,6 +269,7 @@
       </div>
     </a>
   </div>
+
   <div class="member">
     <a href="{{url_for('adidasxoaktrek')}}" class="disnon">
       <div class="card">
@@ -212,9 +282,9 @@
       </div>
     </a>
   </div>
-
 </div>
 
+<!-- Your existing approach section -->
 <h2 id="approachhead"><b>The OakTree Approach</b></h2>
 <div class="parentpara">
   <div class="childpara">
