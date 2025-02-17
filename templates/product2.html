@@ -122,6 +122,12 @@ CSS-- >
         border-color: #212529;
     }
 
+
+    .product_redirect {
+        text-decoration: none;
+        color: #212529;
+    }
+
     .reviews-link {
         text-decoration: none;
         color: #666;
@@ -697,7 +703,7 @@ CSS-- >
             <div class="info-divider"></div>
             <div class="text-center">
                 <h3>VISIT US</h3>
-                <p><a href="#" class="text-decoration-underline">Find a store near you</a></p>
+                <p><a href="{{url_for('stores')}}" class="text-decoration-underline">Find a store near you</a></p>
             </div>
         </div>
     </div>
@@ -795,42 +801,65 @@ CSS-- >
         <button class="nav-arrow nav-prev">←</button>
         <button class="nav-arrow nav-next">→</button>
         <div class="scroll-wrapper">
-            <div class="d-flex gap-4 px-3">
-                <!-- Shoe Cards -->
+            <div class="d-flex" style="gap: 1.5rem;">
+                <!-- Shoe Card 1 -->
                 <div class="shoe-card" style="min-width: 300px;">
-                    <img src="{{ url_for('static', filename='assets/products/tree-dasher-2-blue.png') }}"
-                        alt="Men's Tree Flyer 2 - Medium Grey" class="img-fluid mb-3">
-                    <h5>Men's Tree Flyer 2</h5>
-                    <p class="text-muted">Medium Grey</p>
-                    <p class="fw-bold">$160</p>
+                    <a class="product_redirect"
+                        href="{{url_for('product_page', collection_name='everyday-sneakers', product_name = 'Tree Flyer')}}">
+                        <img src="{{ url_for('static', filename='assets/products/tree-dasher-2-blue.png') }}"
+                            alt="Men's Tree Flyer 2 - Medium Grey" class="img-fluid mb-3">
+                        <h5>Men's Tree Flyer 2</h5>
+                        <p class="text-muted">Medium Grey</p>
+                        <p class="fw-bold">$160</p>
+                    </a>
                 </div>
+
+                <!-- Shoe Card 2 -->
                 <div class="shoe-card" style="min-width: 300px;">
-                    <img src="{{ url_for('static', filename='assets/products/tree-flyer-black.png') }}"
-                        alt="Tree Dasher 2 - Blizzard" class="img-fluid mb-3">
-                    <h5>Tree Dasher 2</h5>
-                    <p class="text-muted">Blizzard</p>
-                    <p class="fw-bold">$135</p>
+                    <a class="product_redirect"
+                        href="{{url_for('product_page', collection_name='everyday-sneakers', product_name = 'Tree Dasher 2')}}">
+                        <img src="{{ url_for('static', filename='assets/products/tree-flyer-black.png') }}"
+                            alt="Tree Dasher 2 - Blizzard" class="img-fluid mb-3">
+                        <h5>Tree Dasher 2</h5>
+                        <p class="text-muted">Blizzard</p>
+                        <p class="fw-bold">$135</p>
+                    </a>
                 </div>
+
+                <!-- Shoe Card 3 -->
                 <div class="shoe-card" style="min-width: 300px;">
-                    <img src="{{ url_for('static', filename='assets/products/tree-runner-classic-black.png') }}"
-                        alt="Men's Tree Runners - Mist" class="img-fluid mb-3">
-                    <h5>Men's Tree Runners</h5>
-                    <p class="text-muted">Mist</p>
-                    <p class="fw-bold">$98</p>
+                    <a class="product_redirect"
+                        href="{{url_for('product_page', collection_name='everyday-sneakers', product_name = 'Tree Runner Go')}}">
+                        <img src="{{ url_for('static', filename='assets/products/tree-runner-classic-black.png') }}"
+                            alt="Men's Tree Runners - Mist" class="img-fluid mb-3">
+                        <h5>Men's Tree Runners</h5>
+                        <p class="text-muted">Mist</p>
+                        <p class="fw-bold">$98</p>
+                    </a>
                 </div>
+
+                <!-- Shoe Card 4 -->
                 <div class="shoe-card" style="min-width: 300px;">
-                    <img src="{{ url_for('static', filename='assets/products/tree-lounger-gray.png') }}"
-                        alt="Men's Tree Lounger - Natural Black" class="img-fluid mb-3">
-                    <h5>Men's Tree Lounger</h5>
-                    <p class="text-muted">Natural Black</p>
-                    <p class="fw-bold">$98</p>
+                    <a class="product_redirect"
+                        href="{{url_for('product_page', collection_name='everyday-sneakers', product_name = 'Tree Lounger')}}">
+                        <img src="{{ url_for('static', filename='assets/products/tree-lounger-gray.png') }}"
+                            alt="Men's Tree Lounger - Natural Black" class="img-fluid mb-3">
+                        <h5>Men's Tree Lounger</h5>
+                        <p class="text-muted">Natural Black</p>
+                        <p class="fw-bold">$98</p>
+                    </a>
                 </div>
+
+                <!-- Shoe Card 5 -->
                 <div class="shoe-card" style="min-width: 300px;">
-                    <img src="{{ url_for('static', filename='assets/products/cloud-loafer-brown.png') }}"
-                        alt="Men's Cloud Loafer - Natural Black" class="img-fluid mb-3">
-                    <h5>Men's Cloud Loafer</h5>
-                    <p class="text-muted">Natural Black</p>
-                    <p class="fw-bold">$105</p>
+                    <a class="product_redirect"
+                        href="{{url_for('product_page', collection_name='everyday-sneakers', product_name = 'Cloud Loafer')}}">
+                        <img src="{{ url_for('static', filename='assets/products/cloud-loafer-brown.png') }}"
+                            alt="Men's Cloud Loafer - Natural Black" class="img-fluid mb-3">
+                        <h5>Men's Cloud Loafer</h5>
+                        <p class="text-muted">Natural Black</p>
+                        <p class="fw-bold">$105</p>
+                    </a>
                 </div>
             </div>
         </div>
@@ -922,4 +951,3 @@ CSS-- >
     });
 </script>
 {% endblock %}
-
