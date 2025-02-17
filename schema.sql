@@ -1,7 +1,0 @@
-DROP TABLE IF EXISTS cart;
-CREATE TABLE cart (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    product_name TEXT NOT NULL,
-    price REAL NOT NULL,
-    quantity INTEGER NOT NULL
-);
