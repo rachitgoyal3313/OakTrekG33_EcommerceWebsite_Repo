@@ -104,7 +104,7 @@ def get_cart_details():
                 'quantity': item.quantity,
                 'price': product.price,
                 'total_price': product.price * item.quantity,
-                'image': product.image_name
+                'image': product.image_1
             }
             cart_with_details.append(item_details)
             subtotal += item_details['total_price']
@@ -340,7 +340,7 @@ def cart():
     cart_with_images = []
     for item in cart_items:
         product = Product.query.filter_by(product_name=item.product_name).first()
-        item.product_image = product.image_name if product else "default.jpg"  # Avoid undefined errors
+        item.product_image = product.image_1 if product else "default.jpg"  # Avoid undefined errors
         cart_with_images.append(item)
 
     return render_template("cart.html", cart_items=cart_with_images)

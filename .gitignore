@@ -6,3 +6,11 @@ __pycache__
 env
 products.db
 instance
+seed_database1.py
+default.db
+orders.db
+cart.db
+address.db
+users.db
+tasks.txt
+schema.sql

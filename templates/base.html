@@ -8,9 +8,9 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="/static/assets/logos/leaf.png">
     <link rel="stylesheet" href="{{ url_for('static',filename='css/header.css') }}">
+    {% block style_block %}{% endblock %}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    {% block style_block %}{% endblock %}
 
 </head>
 
@@ -31,25 +31,25 @@
                                 <div class="dropdown-content">
                                     <div class="dropdown-section">
                                         <h6>SHOES</h6>
-                                        <a href="#">Everyday Sneakers</a>
-                                        <a href="#">Active Shoes</a>
-                                        <a href="#">Water-Repellent Sneakers</a>
-                                        <a href="#">Slip-Ons</a>
-                                        <a href="#">High Tops</a>
-                                        <a href="#">Hiking</a>
-                                        <a href="#">Sale</a>
+                                        <a href="{{ url_for('products', collection_name='everyday-sneakers') }}">Everyday Sneakers</a>
+                                        <a href="{{ url_for('products', collection_name='active-shoes') }}">Active Shoes</a>
+                                        <a href="{{ url_for('products', collection_name='water-repellent-shoes') }}">Water-Repellent Sneakers</a>
+                                        <a href="{{ url_for('products', collection_name='slip-ons') }}">Slip-Ons</a>
+                                        <a href="{{ url_for('products', collection_name='high-tops') }}">High Tops</a>
+                                        <a href="{{ url_for('products', collection_name='hiking-shoes') }}">Hiking</a>
+                                        <a href="{{ url_for('coming_soon' ) }}">Sale</a>
                                     </div>
                                     <div class="dropdown-section">
                                         <h6>BESTSELLERS</h6>
-                                        <a href="#">Tree Runner Go</a>
-                                        <a href="#">Tree Dasher 2</a>
-                                        <a href="#">Tree Runner</a>
-                                        <a href="#">Tree Glider</a>
-                                        <a href="#">Tree Dasher Relay</a>
-                                        <a href="#">Wool Runner Go</a>
-                                        <a href="#">Wool Runner</a>
-                                        <a href="#">Canvas Piper</a>
-                                        <a href="#">Shop all</a>
+                                        <a href="{{ url_for('product_page', collection_name='everyday-sneakers', product_name='Tree Runner Go') }}">Tree Runner Go</a>
+                                        <a href="{{ url_for('product_page', collection_name='everyday-sneakers', product_name='Tree Dasher 2') }}">Tree Dasher 2</a>
+                                        <a href="{{ url_for('product_page', collection_name='everyday-sneakers', product_name='Tree Runner Classic') }}">Tree Runner</a>
+                                        <a href="{{ url_for('product_page', collection_name='everyday-sneakers', product_name='Power Sprint') }}">Power Sprint</a>
+                                        <a href="{{ url_for('product_page', collection_name='everyday-sneakers', product_name='Mizzle Runner') }}">Mizzle Runner</a>
+                                        <a href="{{ url_for('product_page', collection_name='everyday-sneakers', product_name='Wool Runner') }}">Wool Runner Go</a>
+                                        <a href="{{ url_for('product_page', collection_name='everyday-sneakers', product_name='Tree Runner Pro') }}">Tree Runner Pro</a>
+                                        <a href="{{ url_for('product_page', collection_name='everyday-sneakers', product_name='Storm Shield') }}">Storm Shield</a>
+                                        <a href="{{ url_for('products', collection_name='men' ) }}">Shop all</a>
                                     </div>
                                     <div class="dropdown-section">
                                         <h6>APPAREL & MORE</h6>
@@ -88,25 +88,25 @@
                                     <!-- Similar structure as Men's dropdown -->
                                     <div class="dropdown-section">
                                         <h6>SHOES</h6>
-                                        <a href="#">Everyday Sneakers</a>
-                                        <a href="#">Active Shoes</a>
-                                        <a href="#">Ballet Flats</a>
-                                        <a href="#">Water-Repellent Sneakers</a>
-                                        <a href="#">Slip-Ons</a>
-                                        <a href="#">High Tops</a>
-                                        <a href="#">Hiking</a>
-                                        <a href="#">Sale</a>
+                                        <a href="{{ url_for('products', collection_name='everyday-sneakers') }}">Everyday Sneakers</a>
+                                        <a href="{{ url_for('products', collection_name='active-shoes') }}">Active Shoes</a>
+                                        <a href="{{ url_for('products', collection_name='ballet-flats') }}">Ballet Flats</a>
+                                        <a href="{{ url_for('products', collection_name='water-repellent-shoes') }}">Water-Repellent Sneakers</a>
+                                        <a href="{{ url_for('products', collection_name='slip-ons') }}">Slip-Ons</a>
+                                        <a href="{{ url_for('products', collection_name='high-tops') }}">High Tops</a>
+                                        <a href="{{ url_for('products', collection_name='hiking-shoes') }}">Hiking</a>
+                                        <a href="{{ url_for('coming_soon' ) }}">Sale</a>
                                     </div>
                                     <div class="dropdown-section">
                                         <h6>BESTSELLERS</h6>
-                                        <a href="#">Tree Runner Go</a>
-                                        <a href="#">Tree Dasher 2</a>
-                                        <a href="#">Tree Runner</a>
-                                        <a href="#">Tree Breezer</a>
-                                        <a href="#">Tree Dasher Relay</a>
-                                        <a href="#">Wool Runner Go</a>
-                                        <a href="#">Wool Runner</a>
-                                        <a href="#">Canvas Piper</a>
+                                        <a href="{{ url_for('product_page', collection_name='everyday-sneakers', product_name='Tree Runner Go Women\'s') }}">Tree Runner Go</a>
+                                        <a href="{{ url_for('product_page', collection_name='everyday-sneakers', product_name='Tree Dasher 2 Women\'s') }}">Tree Dasher 2</a>
+                                        <a href="{{ url_for('product_page', collection_name='everyday-sneakers', product_name='Tree Runner Classic Women\'s') }}">Tree Runner</a>
+                                        <a href="{{ url_for('product_page', collection_name='everyday-sneakers', product_name='Tree Breezer') }}">Tree Breezer</a>
+                                        <a href="{{ url_for('product_page', collection_name='everyday-sneakers', product_name='Tree Sprinter') }}">Tree Sprinter</a>
+                                        <a href="{{ url_for('product_page', collection_name='everyday-sneakers', product_name='Wool Breeze') }}">Wool Breezer</a>
+                                        <a href="{{ url_for('product_page', collection_name='everyday-sneakers', product_name='Mountain Trekker') }}">Mountain Trekker</a>
+                                        <a href="{{ url_for('product_page', collection_name='everyday-sneakers', product_name='Cloud Ballet') }}">Cloud Ballet</a>
                                     </div>
                                     <div class="dropdown-section">
                                         <h6>APPAREL & MORE</h6>

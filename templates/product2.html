@@ -269,6 +269,10 @@ OakTrek - {{ product_name }}
         display: none;
     }
 
+    /* .nav-link{
+        font-size: 13.6px;
+    } */
+
     .nav-arrow {
         position: absolute;
         top: 50%;
@@ -370,16 +374,18 @@ OakTrek - {{ product_name }}
         <div class="col-lg-7">
             <div class="d-flex">
                 <div class="d-flex flex-column me-3">
-                    {% for image in [image_name, image_1, image_2, image_3, image_4, image_5] if image %}
+                    {% for image in [image_1, image_2, image_3, image_4, image_5] if image %}
                     <button class="thumbnail-button mb-2 {% if loop.first %}selected{% endif %}"
                         onclick="selectImage('{{ loop.index0 }}', '{{ image }}')">
-                        <img src="{{ url_for('static', filename='assets/products/' + image) }}" alt="{{ product_name }} - View {{ loop.index }}" width="60" height="60">
+                        <img src="{{ url_for('static', filename='assets/products/' + image) }}"
+                            alt="{{ product_name }} - View {{ loop.index }}" width="60" height="60">
                     </button>
 
                     {% endfor %}
                 </div>
                 <div class="flex-grow-1 main-image-container" id="mainImageContainer">
-                    <img id="mainImage" src="{{ url_for('static', filename='assets/products/' + image_name) }}" alt="{{ product_name }}" class="img-fluid rounded">
+                    <img id="mainImage" src="{{ url_for('static', filename='assets/products/' + image_1) }}"
+                        alt="{{ product_name }}" class="img-fluid rounded">
                 </div>
             </div>
         </div>
@@ -573,7 +579,26 @@ OakTrek - {{ product_name }}
             </h2>
             <div id="sizing" class="accordion-collapse collapse" data-bs-parent="#productAccordion">
                 <div class="accordion-body">
-                    Size and fit guidance content goes here...
+                    <h4>Finding Your Perfect Fit</h4>
+                    <p>Our shoes are designed to fit true to size. For the best fit:</p>
+                    <ul>
+                        <li>If you're between sizes, we recommend sizing up</li>
+                        <li>For wide feet, consider going up half a size</li>
+                        <li>The shoe should feel snug but not tight around the midfoot</li>
+                    </ul>
+
+                    <h4>Measurement Guide</h4>
+                    <p>To measure your foot:</p>
+                    <ol>
+                        <li>Stand on a piece of paper</li>
+                        <li>Trace your foot outline</li>
+                        <li>Measure the length from heel to longest toe</li>
+                        <li>Use our size chart to find your perfect fit</li>
+                    </ol>
+
+                    <h4>Break-in Period</h4>
+                    <p>Allow 1-2 days of wear for the shoes to adapt to your foot shape. The knit material will
+                        naturally stretch slightly for a custom fit.</p>
                 </div>
             </div>
         </div>
@@ -588,7 +613,30 @@ OakTrek - {{ product_name }}
             </h2>
             <div id="care" class="accordion-collapse collapse" data-bs-parent="#productAccordion">
                 <div class="accordion-body">
-                    Care guide content goes here...
+                    <h4>Machine Washing Instructions</h4>
+                    <ul>
+                        <li>Remove laces and insoles before washing</li>
+                        <li>Wash on cold, gentle cycle (max 30°C/86°F)</li>
+                        <li>Use mild detergent, avoid bleach</li>
+                        <li>Do not tumble dry</li>
+                        <li>Air dry away from direct heat/sunlight</li>
+                    </ul>
+
+                    <h4>Regular Maintenance</h4>
+                    <ul>
+                        <li>Brush off dry dirt with a soft brush</li>
+                        <li>Spot clean small stains with mild soap and water</li>
+                        <li>Allow shoes to dry completely between wears</li>
+                        <li>Store in a cool, dry place</li>
+                    </ul>
+
+                    <h4>What to Avoid</h4>
+                    <ul>
+                        <li>Don't use harsh chemicals or bleach</li>
+                        <li>Avoid direct heat when drying</li>
+                        <li>Don't store in damp conditions</li>
+                        <li>Don't machine wash insoles</li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -603,11 +651,33 @@ OakTrek - {{ product_name }}
             </h2>
             <div id="shipping" class="accordion-collapse collapse" data-bs-parent="#productAccordion">
                 <div class="accordion-body">
-                    Shipping and returns content goes here...
+                    <h4>Shipping Information</h4>
+                    <ul>
+                        <li>Free standard shipping on orders over ₹999</li>
+                        <li>Standard Shipping (5-7 business days): ₹199</li>
+                        <li>Express Shipping (2-3 business days): ₹499</li>
+                        <li>Same-day delivery available in select cities</li>
+                    </ul>
+
+                    <h4>Return Policy</h4>
+                    <ul>
+                        <li>30-day return window for unworn items</li>
+                        <li>Free returns on all domestic orders</li>
+                        <li>Original tags must be attached</li>
+                        <li>Return shipping label provided</li>
+                    </ul>
+
+                    <h4>Exchange Process</h4>
+                    <p>Need a different size or color? Our hassle-free exchange process lets you:</p>
+                    <ul>
+                        <li>Request exchange through your account</li>
+                        <li>Use our prepaid shipping label</li>
+                        <li>Receive your new item within 7-10 days</li>
+                        <li>No additional shipping costs for exchanges</li>
+                    </ul>
                 </div>
             </div>
         </div>
-    </div>
 </section>
 
 <!-- Info Banner Section -->
@@ -727,34 +797,39 @@ OakTrek - {{ product_name }}
             <div class="d-flex gap-4 px-3">
                 <!-- Shoe Cards -->
                 <div class="shoe-card" style="min-width: 300px;">
-                    <img src="/api/placeholder/300/300" alt="Tree Flyer 2" class="img-fluid mb-3">
+                    <img src="{{ url_for('static', filename='assets/products/tree-dasher-2-blue.png') }}"
+                        alt="Men's Tree Flyer 2 - Medium Grey" class="img-fluid mb-3">
                     <h5>Men's Tree Flyer 2</h5>
                     <p class="text-muted">Medium Grey</p>
                     <p class="fw-bold">$160</p>
                 </div>
                 <div class="shoe-card" style="min-width: 300px;">
-                    <img src="/api/placeholder/300/300" alt="Tree Flyer 2 Blizzard" class="img-fluid mb-3">
-                    <h5>Men's Tree Flyer 2</h5>
+                    <img src="{{ url_for('static', filename='assets/products/tree-flyer-black.png') }}"
+                        alt="Tree Dasher 2 - Blizzard" class="img-fluid mb-3">
+                    <h5>Tree Dasher 2</h5>
                     <p class="text-muted">Blizzard</p>
-                    <p class="fw-bold">$160</p>
+                    <p class="fw-bold">$135</p>
                 </div>
                 <div class="shoe-card" style="min-width: 300px;">
-                    <img src="/api/placeholder/300/300" alt="Tree Runners" class="img-fluid mb-3">
+                    <img src="{{ url_for('static', filename='assets/products/tree-runner-classic-black.png') }}"
+                        alt="Men's Tree Runners - Mist" class="img-fluid mb-3">
                     <h5>Men's Tree Runners</h5>
                     <p class="text-muted">Mist</p>
                     <p class="fw-bold">$98</p>
                 </div>
                 <div class="shoe-card" style="min-width: 300px;">
-                    <img src="/api/placeholder/300/300" alt="Tree Dasher Relay" class="img-fluid mb-3">
-                    <h5>Men's Tree Dasher Relay</h5>
+                    <img src="{{ url_for('static', filename='assets/products/tree-lounger-gray.png') }}"
+                        alt="Men's Tree Lounger - Natural Black" class="img-fluid mb-3">
+                    <h5>Men's Tree Lounger</h5>
                     <p class="text-muted">Natural Black</p>
-                    <p class="fw-bold">$130</p>
+                    <p class="fw-bold">$98</p>
                 </div>
                 <div class="shoe-card" style="min-width: 300px;">
-                    <img src="/api/placeholder/300/300" alt="Tree Dasher 2" class="img-fluid mb-3">
-                    <h5>Men's Tree Dasher 2</h5>
+                    <img src="{{ url_for('static', filename='assets/products/cloud-loafer-brown.png') }}"
+                        alt="Men's Cloud Loafer - Natural Black" class="img-fluid mb-3">
+                    <h5>Men's Cloud Loafer</h5>
                     <p class="text-muted">Natural Black</p>
-                    <p class="fw-bold">$135</p>
+                    <p class="fw-bold">$105</p>
                 </div>
             </div>
         </div>
