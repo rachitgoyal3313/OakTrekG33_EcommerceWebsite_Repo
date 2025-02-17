@@ -245,14 +245,17 @@
                     </div>
                 </div>
             </div>
-
+            {% if current_user.addresses %}
+            {% for address in current_user.addresses %}
             <div class="delivery-info">
                 <h3 class="mb-3">Delivery Information</h3>
                 <p class="mb-1">{{ user.name }}</p>
-                <p class="mb-1">{{ shipping_address.street }}</p>
-                <p class="mb-1">{{ shipping_address.city }}, {{ shipping_address.state }} {{ shipping_address.zipcode }}</p>
+                <p class="mb-1">{{ address.name }}</p>
+                <p class="mb-1">{{ address.city }}, {{ address.state }} {{ address.zipcode }}</p>
                 <p class="mb-0">India</p>
             </div>
+            {% endfor %}
+            {% endif %}
 
             <a href="{{ url_for('products', collection_name='mens') }}" class="continue-shopping-btn">Continue Shopping</a>
         </div>

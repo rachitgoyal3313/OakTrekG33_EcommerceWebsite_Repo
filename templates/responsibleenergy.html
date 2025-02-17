@@ -151,7 +151,7 @@
     font-size: 3em;
   }
 
-  .img_responsible {
+  img {
     margin-bottom: 80px;
     margin-top: 40px;
     align-self: center;
@@ -185,7 +185,7 @@
       width: 95%;
     }
 
-    .img_responsible {
+    img {
       width: 100%;
       height: auto;
     }
@@ -305,15 +305,11 @@
 
 <div class="container">
   <div class="content-wrapper">
-    <center>
-    <div style="display: flex; align-items:center">
     <div class="uppermainheading">
-      <h1 style="text-align: center;"><b>Responsible Energy</b></h1>
+      <h1 id="mainheading"><b>Responsible Energy</b></h1>
     </div>
-  </div>
-  </center>
 
-    <img class="img_responsible" src="{{ url_for('static', filename= 'assets/products/cargoship.png') }}" height="700px" width="1350px"
+    <img src="{{ url_for('static', filename= 'assets/products/cargoship.png') }}" height="700px" width="1350px"
       class="img-fluid" alt="Cargo Ship">
 
     <div class="middlecontent">
@@ -341,7 +337,7 @@
       </div>
     </div>
 
-    <img class="img_responsible" src="{{ url_for('static', filename= '/assets/products/needle.png')}}" height="700px" width="1350px"
+    <img src="{{ url_for('static', filename= 'assets/products/needle.png') }}" height="700px" width="1350px"
       class="img-fluid" alt="Needle">
 
     <div class="whatwedoing">
@@ -386,7 +382,7 @@
   <div class="member">
     <a href="{{url_for('moonshot')}}" class="disnon">
       <div class="card">
-        <img class="img_responsible" src="{{ url_for('static', filename= 'assets/products/member1.png') }}" class="card-img-top cardimage"
+        <img src="{{ url_for('static', filename= 'assets/products/member1.png') }}" class="card-img-top cardimage"
           alt="MO.ONSHOT" />
         <div class="card-body">
           <h3><b>Introducing MO.ONSHOT</b></h3>
@@ -399,7 +395,7 @@
   <div class="member">
     <a href="{{url_for('bcorp')}}" class="disnon">
       <div class="card">
-        <img class="img_responsible" src="{{ url_for('static', filename= 'assets/products/member3.png') }}" class="card-img-top cardimage"
+        <img src="{{ url_for('static', filename= 'assets/products/member3.png') }}" class="card-img-top cardimage"
           alt="MO.ONSHOT" />
         <div class="card-body">
           <h3><b>We're a Certified B Corp</b></h3>
@@ -411,7 +407,7 @@
   <div class="member">
     <a href="{{url_for('mothernature')}}" class="disnon">
       <div class="card">
-        <img class="img_responsible" src="{{ url_for('static', filename= 'assets/products/member4.png') }}" class="card-img-top cardimage"
+        <img src="{{ url_for('static', filename= 'assets/products/member4.png') }}" class="card-img-top cardimage"
           alt="MO.ONSHOT" />
         <div class="card-body">
           <h3><b>Giving Mother Nature a seat at the Table</b></h3>
@@ -423,7 +419,7 @@
   <div class="member">
     <a href="{{url_for('adidasxoaktrek')}}" class="disnon">
       <div class="card">
-        <img class="img_responsible" src="{{ url_for('static', filename= 'assets/products/member5.png') }}" class="card-img-top cardimage"
+        <img src="{{ url_for('static', filename= 'assets/products/member5.png') }}" class="card-img-top cardimage"
           alt="MO.ONSHOT" />
         <div class="card-body">
           <h3><b>Adidas X Oaktrek</b></h3>
