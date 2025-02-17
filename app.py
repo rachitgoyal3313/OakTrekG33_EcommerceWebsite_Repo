@@ -265,7 +265,7 @@ def add_phone():
 
 # Product and Cart Routes
 @app.route("/collections/<string:collection_name>")
-def products(collection_name):   
+def products(collection_name):
     if collection_name.lower() in ['men', 'mens', "men's"]:
         products = Product.query.filter_by(gender='Male').all()
     elif collection_name.lower() in ['women', 'womens', "women's"]:
@@ -442,7 +442,7 @@ def index():
 def adidasxoaktrek():
     return render_template("adidasxoaktrek.html")
 
-@app.route("/footprint")
+@app.route("/foorprint")
 def footprint():
     return render_template("footprint.html")
 
@@ -503,7 +503,7 @@ def checkout():
     )
 
 
-@app.route("/confirmation")
+@app.route("/confirmation", methods=['GET', 'POST'])
 @login_required
 def confirmation():
     # Get cart items
@@ -512,7 +512,7 @@ def confirmation():
     if not cart_items:
         return redirect(url_for('cart'))
     
-    # Create order summary with product details
+    # Create order summary
     order_items = []
     subtotal = 0
     
@@ -530,20 +530,20 @@ def confirmation():
             subtotal += item_total
     
     # Calculate totals
-    tax = round(subtotal * 0.08, 2)  # Assuming 8% tax
+    tax = round(subtotal * 0.08, 2)  # 8% tax
     total = subtotal + tax
     
-    # Get user's default shipping address
+    # Generate dummy order number
+    import random
+    order_number = f"OT{random.randint(100000, 999999)}"
+    
+    # Get shipping address
     shipping_address = Address.query.filter_by(
         user_id=current_user.id,
         is_default=True
     ).first()
     
-    # Generate a random order number (you might want to implement a better system)
-    import random
-    order_number = f"OT{random.randint(100000, 999999)}"
-    
-    # Clear the user's cart after showing confirmation
+    # Clear the cart after confirmation
     for item in cart_items:
         db.session.delete(item)
     db.session.commit()
