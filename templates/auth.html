@@ -29,14 +29,14 @@
 
         .leaf {
             position: absolute;
-            width: 25px;
-            height: 25px;
-            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23212A2F' opacity='0.15'%3E%3Cpath d='M12 2L8 6H4l4 4-4 4h4l4 4 4-4h4l-4-4 4-4h-4z'/%3E%3C/svg%3E") no-repeat;
+            width: 50px;
+            height: 50px;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='500' height='500' viewBox='0 0 500 500' preserveAspectRatio='xMidYMid meet'%3E%3Cg transform='translate(0,500) scale(0.1,-0.1)' fill='%23000000' stroke='none'%3E%3Cpath d='M2534 4037c-256-123-349-243-430-559-44-171-28-238 101-421 55-79 68-120 43-145-15-15-76-15-148 0-110 22-203-29-234-129-20-65-20-77 0-120 35-72 108-122 204-138 25-4 68-18 96-31 53-25 134-102 134-128 0-8-31-47-69-87-37-41-75-88-85-106-22-44-20-118 4-169 27-55 196-218 290-278 40-27 95-66 120-87 101-85 67-23-40 74-103 94-230 226-273 286-71 96-67 110 59 242 94 97 97 111 46 186-70 103-121 139-236 167-38 9-85 25-106 36-41 21-90 73-90 96 0 31 31 72 66 89 35 17 41 17 120 0 108-22 163-15 211 28 40 37 52 93 34 150-7 20-44 75-82 122-93 116-111 154-111 229 2 119 29 213 105 359 60 115 117 174 223 229 91 48 159 70 216 71 96 1 223-93 249-185 19-68 14-277-10-395-32-155-26-192 39-247 50-41 73-42 159-7 93 38 112 39 152 3 26-23 32-36 32-70 0-63-48-123-232-297-79-74-121-156-129-250-5-63-4-65 31-100 47-47 101-48 187-5 33 17 70 30 84 30 28 0 66-42 66-74 0-36-43-103-117-185-148-161-190-246-180-360 7-78 28-145 48-149 8-1 23 4 33 11 17 13 18 19 8 60-36 142-2 229 155 401 89 97 123 158 123 221 0 56-18 92-66 135-45 39-75 37-165-10-118-61-169-30-138 85 9 32 40 68 153 180 157 153 191 205 201 305 15 139-101 200-267 140-58-21-70-23-91-11-48 26-57 78-32 191 22 96 30 292 16 374-15 85-39 134-92 187-60 60-117 82-224 86-85 3-94 2-161-30z'/%3E%3C/g%3E%3C/svg%3E") no-repeat;
+            background-size: contain;
             pointer-events: none;
             animation: falling linear infinite;
             z-index: -1;
         }
-
 
         @keyframes falling {
             0% {
@@ -49,6 +49,7 @@
                 opacity: 0;
             }
         }
+
 
         .auth-container {
             min-height: 100vh;
@@ -67,6 +68,112 @@
             /* Contains the falling leaves */
         }
 
+        /* Enhanced Error Popup Styles */
+        .error-popup {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 420px;
+            background-color: #FFD8D8;
+            border: 1px solid #FFBDBD;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            display: flex;
+            align-items: center;
+            padding: 16px 20px;
+            z-index: 9999;
+            animation: slideInDown 0.4s ease-out, shake 0.5s ease-in-out 0.4s;
+        }
+
+        .error-popup-icon {
+            width: 24px;
+            height: 24px;
+            margin-right: 12px;
+            flex-shrink: 0;
+            color: #B94A48;
+        }
+
+        .error-popup-content {
+            flex: 1;
+        }
+
+        .error-popup-message {
+            margin: 0 0 4px 0;
+            color: #B94A48;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        .error-popup-help {
+            margin: 0;
+            color: #666;
+            font-size: 0.85rem;
+        }
+
+        .error-popup-help a {
+            color: #B94A48;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+
+        .error-popup-close {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background-color: #FFBDBD;
+            color: #B94A48;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            margin-left: 12px;
+            flex-shrink: 0;
+            border: none;
+            transition: background-color 0.2s ease;
+            font-size: 18px;
+            line-height: 1;
+        }
+
+        .error-popup-close:hover {
+            background-color: #FFA5A5;
+        }
+
+        @keyframes slideInDown {
+            from {
+                transform: translate(-50%, -20px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translate(-50%, 0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes shake {
+
+            0%,
+            100% {
+                transform: translateX(-50%);
+            }
+
+            10%,
+            30%,
+            50%,
+            70%,
+            90% {
+                transform: translateX(calc(-50% - 4px));
+            }
+
+            20%,
+            40%,
+            60%,
+            80% {
+                transform: translateX(calc(-50% + 4px));
+            }
+        }
 
         .auth-card {
             background: white;
@@ -82,11 +189,63 @@
 
         .toggle-container {
             width: 100%;
-            padding: 4px;
+            padding: 6px;
             position: relative;
             background-color: #f8f8f8;
-            border-radius: 8px;
-            margin-bottom: 20px;
+            border-radius: 12px;
+            margin-bottom: 28px;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
+
+        }
+
+        .form-section {
+            position: absolute;
+            width: 100%;
+            transition: all 0.3s ease-out;
+            backface-visibility: hidden;
+        }
+
+        .login-form {
+            transform: translateX(0);
+            opacity: 1;
+            filter: blur(0);
+        }
+
+        .signup-form {
+            display: none;
+            transform: translateX(20px);
+            opacity: 0;
+            filter: blur(5px);
+        }
+
+        .toggle-option {
+            transition: all 0.3s ease-out;
+        }
+
+        .toggle-slider {
+            transition: transform 0.3s ease-out;
+        }
+
+        /* Disable pointer events during transition */
+        .auth-card.transitioning {
+            pointer-events: none;
+        }
+
+        /* Smooth transition for form elements */
+        .form-control,
+        .form-label,
+        .btn-primary,
+        .auth-footer {
+            transition: all 0.3s ease-out;
+        }
+
+        /* Fade effect for form elements during transition */
+        .auth-card.transitioning .form-control,
+        .auth-card.transitioning .form-label,
+        .auth-card.transitioning .btn-primary,
+        .auth-card.transitioning .auth-footer {
+            opacity: 0;
+            filter: blur(3px);
         }
 
         .toggle-options {
@@ -96,20 +255,20 @@
         }
 
         .toggle-option {
-            transition: color 0.6s cubic-bezier(0.4, 0, 0.2, 1);
             flex: 1;
             text-align: center;
             line-height: var(--toggle-height);
             cursor: pointer;
             position: relative;
             z-index: 2;
-            transition: color 0.3s ease;
             font-weight: 500;
             font-size: 1rem;
             color: var(--accent-color);
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            opacity: 0.7;
         }
 
-        .toggle-slider {
+        /* .toggle-slider {
             position: absolute;
             top: 0;
             left: 0;
@@ -122,10 +281,28 @@
 
         .auth-card.show-signup .toggle-slider {
             transform: translateX(100%);
+        } */
+        .toggle-slider {
+            position: absolute;
+            top: 4px;
+            left: 4px;
+            width: calc(50% - 8px);
+            height: calc(100% - 8px);
+            background-color: var(--primary-color);
+            border-radius: 8px;
+            transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .auth-card.show-signup .toggle-slider {
+            transform: translateX(calc(100% + 8px));
         }
 
         .toggle-option.active {
             color: white;
+            opacity: 1;
+            transform: scale(1.05);
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
         }
 
         .form-control {
@@ -209,34 +386,32 @@
         .form-section {
             position: absolute;
             width: 100%;
-            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-            opacity: 1;
-            padding: 0 15px;
-            transform-origin: center;
+            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            backface-visibility: hidden;
         }
 
         .login-form {
-            transform: rotateY(0deg);
+            transform: translateX(0) rotateY(0deg);
             opacity: 1;
-            z-index: 2;
+            filter: blur(0);
         }
 
         .signup-form {
             transform: rotateY(90deg);
             opacity: 0;
-            z-index: 1;
+            filter: blur(5px);
         }
 
         .auth-card.show-signup .login-form {
-            transform: rotateY(-90deg);
+            transform: translateX(-30px) rotateY(-10deg);
             opacity: 0;
-            z-index: 1;
+            filter: blur(5px);
         }
 
         .auth-card.show-signup .signup-form {
-            transform: rotateY(0deg);
+            transform: translateX(0) rotateY(0deg);
             opacity: 1;
-            z-index: 2;
+            filter: blur(0)
         }
 
         .forms-container {
@@ -315,6 +490,23 @@
 
         .btn-primary:hover {
             background-color: #4D5559 !important;
+        }
+
+        /* Better transitions for form elements */
+        .form-control,
+        .form-label,
+        .btn-primary,
+        .auth-footer {
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        .auth-card.transitioning .form-control,
+        .auth-card.transitioning .form-label,
+        .auth-card.transitioning .btn-primary,
+        .auth-card.transitioning .auth-footer {
+            opacity: 0;
+            filter: blur(3px);
+            transform: translateY(5px);
         }
     </style>
 
@@ -547,18 +739,321 @@
 
         setInterval(createLeaf, 300);
 
+        //     function toggleForm(formType) {
+        //     const card = document.querySelector('.auth-card');
+        //     const options = document.querySelectorAll('.toggle-option');
+        //     const loginForm = document.querySelector('.login-form');
+        //     const signupForm = document.querySelector('.signup-form');
+
+        //     // Prevent multiple clicks during transition
+        //     if (card.classList.contains('transitioning')) return;
+
+        //     card.classList.add('transitioning');
+
+        //     if (formType === 'signup') {
+        //         // Fade out login form
+        //         loginForm.style.transform = 'translateX(-20px)';
+        //         loginForm.style.opacity = '0';
+        //         loginForm.style.filter = 'blur(5px)';
+
+        //         // After short delay, start showing signup form
+        //         setTimeout(() => {
+        //             loginForm.style.display = 'none';
+        //             signupForm.style.display = 'block';
+
+        //             // Force reflow
+        //             void signupForm.offsetWidth;
+
+        //             signupForm.style.transform = 'translateX(0)';
+        //             signupForm.style.opacity = '1';
+        //             signupForm.style.filter = 'blur(0)';
+
+        //             card.classList.add('show-signup');
+        //             options[1].classList.add('active');
+        //             options[0].classList.remove('active');
+        //         }, 300);
+        //     } else {
+        //         // Fade out signup form
+        //         signupForm.style.transform = 'translateX(20px)';
+        //         signupForm.style.opacity = '0';
+        //         signupForm.style.filter = 'blur(5px)';
+
+        //         // After short delay, start showing login form
+        //         setTimeout(() => {
+        //             signupForm.style.display = 'none';
+        //             loginForm.style.display = 'block';
+
+        //             // Force reflow
+        //             void loginForm.offsetWidth;
+
+        //             loginForm.style.transform = 'translateX(0)';
+        //             loginForm.style.opacity = '1';
+        //             loginForm.style.filter = 'blur(0)';
+
+        //             card.classList.remove('show-signup');
+        //             options[0].classList.add('active');
+        //             options[1].classList.remove('active');
+        //         }, 300);
+        //     }
+
+
+        //     setTimeout(() => {
+        //         card.classList.remove('transitioning');
+        //     }, 600);
+        // }
         function toggleForm(formType) {
             const card = document.querySelector('.auth-card');
             const options = document.querySelectorAll('.toggle-option');
+            const loginForm = document.querySelector('.login-form');
+            const signupForm = document.querySelector('.signup-form');
+
+            // Prevent multiple clicks during transition
+            if (card.classList.contains('transitioning')) return;
+
+            card.classList.add('transitioning');
 
             if (formType === 'signup') {
+                // Show the toggle slider movement first
                 card.classList.add('show-signup');
                 options[1].classList.add('active');
                 options[0].classList.remove('active');
+
+                // Wait a tiny bit before starting form transition
+                setTimeout(() => {
+                    // Fade out login form with slight rotation
+                    loginForm.style.transform = 'translateX(-30px) rotateY(-10deg)';
+                    loginForm.style.opacity = '0';
+                    loginForm.style.filter = 'blur(5px)';
+
+                    // After short delay, start showing signup form
+                    setTimeout(() => {
+                        loginForm.style.display = 'none';
+                        signupForm.style.display = 'block';
+
+                        // Force reflow
+                        void signupForm.offsetWidth;
+
+                        // Fade in signup form
+                        signupForm.style.transform = 'translateX(0) rotateY(0deg)';
+                        signupForm.style.opacity = '1';
+                        signupForm.style.filter = 'blur(0)';
+                    }, 250);
+                }, 100);
             } else {
+                // Show the toggle slider movement first
                 card.classList.remove('show-signup');
                 options[0].classList.add('active');
                 options[1].classList.remove('active');
+
+                // Wait a tiny bit before starting form transition
+                setTimeout(() => {
+                    // Fade out signup form with slight rotation
+                    signupForm.style.transform = 'translateX(30px) rotateY(10deg)';
+                    signupForm.style.opacity = '0';
+                    signupForm.style.filter = 'blur(5px)';
+
+                    // After short delay, start showing login form
+                    setTimeout(() => {
+                        signupForm.style.display = 'none';
+                        loginForm.style.display = 'block';
+
+                        // Force reflow
+                        void loginForm.offsetWidth;
+
+                        // Fade in login form
+                        loginForm.style.transform = 'translateX(0) rotateY(0deg)';
+                        loginForm.style.opacity = '1';
+                        loginForm.style.filter = 'blur(0)';
+                    }, 250);
+                }, 100);
+            }
+
+            // Remove transitioning class after animation completes
+            setTimeout(() => {
+                card.classList.remove('transitioning');
+            }, 700);
+        }
+
+        // Add subtle hover effect to toggle options
+        document.querySelectorAll('.toggle-option').forEach(option => {
+            option.addEventListener('mouseover', () => {
+                if (!option.classList.contains('active')) {
+                    option.style.opacity = '0.9';
+                }
+            });
+
+            option.addEventListener('mouseout', () => {
+                if (!option.classList.contains('active')) {
+                    option.style.opacity = '0.7';
+                }
+            });
+        });
+        // ERROR POPUP KA KAAM
+        // Function to show error popup
+        function showErrorPopup(message, helpText, helpAction) {
+            // Remove any existing popup
+            const existingPopup = document.querySelector('.error-popup');
+            if (existingPopup) {
+                existingPopup.remove();
+            }
+
+            // Create new popup
+            const popup = document.createElement('div');
+            popup.className = 'error-popup';
+
+            // Construct the popup HTML with SVG icon instead of monkey image
+            popup.innerHTML = `
+        <div class="error-popup-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
+            </svg>
+        </div>
+        <div class="error-popup-content">
+            <p class="error-popup-message">${message}</p>
+            <p class="error-popup-help">${helpText} <a class="error-popup-action">${helpAction}</a></p>
+        </div>
+        <button class="error-popup-close" aria-label="Close">&times;</button>
+    `;
+
+            // Add to body
+            document.body.appendChild(popup);
+
+            // Set up close button
+            const closeButton = popup.querySelector('.error-popup-close');
+            closeButton.addEventListener('click', () => {
+                hideErrorPopup();
+            });
+
+            // Set up action link
+            const actionLink = popup.querySelector('.error-popup-action');
+            actionLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                if (helpAction === 'recover your username') {
+                    // Handle username recovery
+                    window.location.href = '/recover-username';
+                } else if (helpAction === 'reset your password') {
+                    // Handle password reset
+                    window.location.href = '/reset-password';
+                }
+            });
+
+            // Auto-hide after 6 seconds
+            setTimeout(() => {
+                hideErrorPopup();
+            }, 6000);
+        }
+
+        // Function to hide error popup
+        function hideErrorPopup() {
+            const popup = document.querySelector('.error-popup');
+            if (popup) {
+                popup.style.opacity = '0';
+                popup.style.transform = 'translate(-50%, -20px)';
+                setTimeout(() => {
+                    popup.remove();
+                }, 300);
+            }
+        }
+
+        // Modify the handleLogin function to use the new error popup
+        async function handleLogin(event) {
+            event.preventDefault();
+            const form = event.target;
+            const formData = new FormData(form);
+
+            try {
+                const response = await fetch('/login', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success!',
+                        text: data.message,
+                        timer: 1500
+                    }).then(() => {
+                        window.location.href = data.redirect;
+                    });
+                } else {
+                    // Use our custom error popup
+                    if (data.error_type === 'username') {
+                        showErrorPopup(
+                            "Sorry, we couldn't find an account with that username.",
+                            "Can we help you",
+                            "recover your username"
+                        );
+                    } else if (data.error_type === 'password') {
+                        showErrorPopup(
+                            "Incorrect password. Please try again.",
+                            "Forgot your password? You can",
+                            "reset your password"
+                        );
+                    } else {
+                        showErrorPopup(
+                            data.message || "An error occurred during login.",
+                            "Please try again or contact support if the problem persists.",
+                            "get help"
+                        );
+                    }
+                }
+            } catch (error) {
+                showErrorPopup(
+                    "An error occurred connecting to our servers.",
+                    "Please check your internet connection and try again.",
+                    "refresh the page"
+                );
+            }
+        }
+
+        // Similarly, update the handleSignup function
+        async function handleSignup(event) {
+            event.preventDefault();
+            const form = event.target;
+            const formData = new FormData(form);
+
+            try {
+                const response = await fetch('/register', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success!',
+                        text: data.message,
+                        timer: 1500
+                    }).then(() => {
+                        window.location.href = data.redirect;
+                    });
+                } else {
+                    // Use our custom error popup with appropriate messaging
+                    if (data.error_type === 'email_exists') {
+                        showErrorPopup(
+                            "This email address is already registered.",
+                            "You can",
+                            "sign in instead"
+                        );
+                    } else {
+                        showErrorPopup(
+                            data.message || "An error occurred during sign up.",
+                            "Please try again with different information or contact support.",
+                            "get help"
+                        );
+                    }
+                }
+            } catch (error) {
+                showErrorPopup(
+                    "An error occurred connecting to our servers.",
+                    "Please check your internet connection and try again.",
+                    "refresh the page"
+                );
             }
         }
     </script>

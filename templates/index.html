@@ -124,10 +124,9 @@
     }
 
     .carousel-slide {
-        flex: 0 0 calc(50% - 10px);
+        flex: 0 0 50%;
         height: 100%;
         position: relative;
-        margin-right: 20px;
     }
 
     .carousel-slide img {
@@ -247,15 +246,13 @@
         margin-bottom: 16px;
         border-radius: 8px;
         overflow: hidden;
-
     }
 
     .product-image img {
         width: 100%;
+        height: auto;
         display: block;
         object-fit: cover;
-        min-height: 300px;
-
     }
 
     .product-info {
@@ -448,8 +445,9 @@
 {% endblock %}
 
 
+
 {% extends "base.html" %}
-{% block title %} Oaktrek {% endblock %}
+{% block title_block %} Oaktrek {% endblock %}
 
 {% block main_block %}
 
@@ -534,11 +532,18 @@
                 alt="Women's Active Shoes">
             <div class="slide-content">Men's Weather Ready Collection</div>
         </a>
+        <a href="{{ url_for('products', collection_name = 'womens' ) }}" class="carousel-slide">
+            <img src="{{url_for('static', filename='assets/products/landingpagecrousel6.png')}}"
+                alt="Women's Active Shoes">
+            <div class="slide-content">Women's Weather Ready Collection</div>
+        </a>
     </div>
     <div class="carousel-dots">
         <button class="dot active" onclick="setSlide(0)"></button>
         <button class="dot" onclick="setSlide(1)"></button>
         <button class="dot" onclick="setSlide(2)"></button>
+        <button class="dot" onclick="setSlide(3)"></button>
+        <button class="dot" onclick="setSlide(4)"></button>
     </div>
 </div>
 
@@ -732,8 +737,7 @@
             <a href="{{ url_for('product_page', collection_name='everyday-sneakers', product_name='Wool Breeze' ) }}"
                 class="product-carousel-card">
                 <div class="product-image">
-                    <img src="{{url_for('static', filename='assets/products/26image1.png')}}"
-                        alt="Women's Wool Breeze">
+                    <img src="{{url_for('static', filename='assets/products/26image1.png')}}" alt="Women's Wool Breeze">
                 </div>
                 <div class="product-info">
                     <h3>Women's Wool Breeze</h3>
@@ -744,8 +748,7 @@
             <a href="{{ url_for('product_page', collection_name='everyday-sneakers', product_name='Cloud Walker' ) }}"
                 class="product-carousel-card">
                 <div class="product-image">
-                    <img src="{{url_for('static', filename='assets/products/5image1.png')}}"
-                        alt="Men's Cloud Walker">
+                    <img src="{{url_for('static', filename='assets/products/5image1.png')}}" alt="Men's Cloud Walker">
                 </div>
                 <div class="product-info">
                     <h3>Men's Cloud Walker</h3>
@@ -787,79 +790,84 @@
     const carousel = document.querySelector('.carousel');
     const slides = document.querySelectorAll('.carousel-slide');
     const dots = document.querySelectorAll('.dot');
+    const totalSlides = slides.length;
+    const slidesPerView = 2;
+    const maxSlideIndex = 4; // Fixed to 5 images (0-4 index)
 
     function setSlide(index) {
-        currentSlide = index;
+        currentSlide = Math.min(Math.max(0, index), maxSlideIndex);
         updateCarousel();
     }
 
     function updateCarousel() {
-        carousel.style.transform = `translateX(-${currentSlide * 50}%)`;
+        // Calculate the translation percentage based on current slide
+        // Using slidesPerView to ensure proper movement distance
+        const translation = currentSlide * (100 / slidesPerView);
+        carousel.style.transform = `translateX(-${translation}%)`;
+
+        // Update dots
         dots.forEach((dot, index) => {
             dot.classList.toggle('active', index === currentSlide);
         });
     }
 
     function nextSlide() {
-        currentSlide = (currentSlide + 1) % slides.length;
+        if (currentSlide < maxSlideIndex) {
+            currentSlide++;
+        } else {
+            currentSlide = 0; // Roll back to the first slide
+        }
         updateCarousel();
     }
 
     // Auto-advance slides every 5 seconds
-    setInterval(nextSlide, 5000);
+    const autoPlayInterval = setInterval(nextSlide, 5000);
 
     // Add click event listeners to dots
     dots.forEach((dot, index) => {
         dot.addEventListener('click', () => setSlide(index));
     });
 
-
-
-    // Find existing carousel and dots elements
-    const heroLeft = document.querySelector('.hero-left');
-    const heroRight = document.querySelector('.hero-right');
-    const heroImages = [
-        heroLeft.querySelector('img'),
-        heroRight.querySelector('img')
-    ];
-
-    // Store original image sources
-    const imageSources = heroImages.map(img => img.src);
-
-    function updateHeroSection() {
-        // Swap image sources
-        heroImages.forEach((img, index) => {
-            img.src = imageSources[(index + currentSlide) % 2];
-        });
-    }
-
-    // Modify the existing updateCarousel function
-    function updateCarousel() {
-        // Keep existing carousel functionality
-        carousel.style.transform = `translateX(-${currentSlide * 50}%)`;
-        dots.forEach((dot, index) => {
-            dot.classList.toggle('active', index === currentSlide);
-        });
-
-        // Add hero section update
-        updateHeroSection();
-    }
-
-    // The rest of your existing code remains the same:
-    function nextSlide() {
-        currentSlide = (currentSlide + 1) % slides.length;
-        updateCarousel();
-    }
-
-    // Auto-advance slides every 5 seconds
-    setInterval(nextSlide, 5000);
-
-    // Add click event listeners to dots
-    dots.forEach((dot, index) => {
-        dot.addEventListener('click', () => setSlide(index));
+    // Optional: Pause auto-play on hover
+    carousel.addEventListener('mouseenter', () => {
+        clearInterval(autoPlayInterval);
     });
 
+    carousel.addEventListener('mouseleave', () => {
+        setInterval(nextSlide, 5000);
+    });
 
+    // Add touch support for mobile devices
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    carousel.addEventListener('touchstart', (e) => {
+        touchStartX = e.touches[0].clientX;
+    });
+
+    carousel.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].clientX;
+        handleSwipe();
+    });
+
+    function handleSwipe() {
+        const swipeThreshold = 50; // Minimum distance for a swipe
+        const difference = touchStartX - touchEndX;
+
+        if (Math.abs(difference) > swipeThreshold) {
+            if (difference > 0 && currentSlide < maxSlideIndex) {
+                // Swipe left
+                currentSlide++;
+            } else if (difference < 0 && currentSlide > 0) {
+                // Swipe right
+                currentSlide--;
+            }
+            updateCarousel();
+        }
+    }
+
+    // Initial update
+    updateCarousel();
 </script>
 
 
