@@ -1,1 +1,20 @@
-[] place order button is dummy
+{
+    add product,
+    update product,
+    delete product,
+    view users logged in as client,
+    orders,
+    apparel,
+    stock managament system
+}
+
+
+
+RACHIT ---> {
+    admin side UI: sign in  as admin,
+    add new products,
+    fetch products(READ),
+    update products,
+    delete products,
+
+}

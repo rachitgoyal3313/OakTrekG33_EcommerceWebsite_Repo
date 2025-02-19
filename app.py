@@ -9,14 +9,14 @@ app = Flask(__name__)
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 # Configuration
-app.config['SECRET_KEY'] = 'your_secret_key'  # Change this!
+app.config['SECRET_KEY'] = 'your_secret_key'  
 app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///" + os.path.join(basedir, "default.db")
 app.config['SQLALCHEMY_BINDS'] = {
     'users': "sqlite:///" + os.path.join(basedir, "users.db"),
     'cart': "sqlite:///" + os.path.join(basedir, "cart.db"),
     'products': "sqlite:///" + os.path.join(basedir, "products.db"),
-    'address': "sqlite:///" + os.path.join(basedir, "address.db"),
-    'orders': "sqlite:///" + os.path.join(basedir, "orders.db")  # Added orders db as well since we have Order model
+    # 'address': "sqlite:///" + os.path.join(basedir, "address.db"),
+    # 'orders': "sqlite:///" + os.path.join(basedir, "orders.db")  
 }
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -52,7 +52,7 @@ class Address(db.Model):
     name = db.Column(db.String(100), nullable=False)
     street = db.Column(db.String(100), nullable=False)
     city = db.Column(db.String(50), nullable=False)
-    state = db.Column(db.String(2), nullable=False)
+    state = db.Column(db.String(20), nullable=False)
     zipcode = db.Column(db.String(10), nullable=False)
     is_default = db.Column(db.Boolean, default=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
