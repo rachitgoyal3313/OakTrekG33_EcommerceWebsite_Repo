@@ -61,6 +61,7 @@ class Order(db.Model):
     __bind_key__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
     order_date = db.Column(db.DateTime, default=datetime.utcnow)
+    # product_name = db.Column(db.String(100), nullable=False)
     total_amount = db.Column(db.Float, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
@@ -312,7 +313,12 @@ def cart():
         price = float(request.form.get("price"))
         quantity = int(request.form.get("quantity"))
         prod_item = Product.query.filter_by(product_name=product_name).first()
+        selected_size = request.form.get('selected_size')
         
+        if not selected_size:
+            flash('Please select a size before adding to cart', 'danger')
+            return redirect(request.referrer or url_for('index'))
+            
         if not prod_item:
             flash("Product not found!", "danger")
             return redirect(url_for("cart"))
@@ -542,6 +548,14 @@ def confirmation():
         user_id=current_user.id,
         is_default=True
     ).first()
+
+    # Create a new order record - ADD THIS CODE HERE
+    new_order = Order(
+        total_amount=total,
+        user_id=current_user.id
+    )
+    db.session.add(new_order)
+    db.session.commit()
     
     # Clear the cart after confirmation
     for item in cart_items:

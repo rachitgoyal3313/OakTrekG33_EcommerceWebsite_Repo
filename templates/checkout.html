@@ -264,7 +264,7 @@
         </div>
     </div>
 
-    <!-- <form action="{{ url_for('confirmation') }}" method="post"> -->
+    <form action="{{ url_for('confirmation') }}" method="post" id="checkout-form">
     <div class="row">
         <div class="col-lg-8">
             <div class="checkout-section">
@@ -404,11 +404,13 @@
                         <strong>Total</strong>
                         <strong>${{ "%.2f"|format(total) }}</strong>
                     </div>
-                    <a href="{{ url_for('confirmation' ) }}"><button class="place-order-btn">Place Order</button></a>
+                    <!-- <a href="{{ url_for('confirmation' ) }}"><button class="place-order-btn">Place Order</button></a> -->
+                    <button type="submit" class="place-order-btn">Place Order</button>
                 </div>
             </div>
         </div>
     </div>
+    </form>
 </div>
 {% endblock %}
 
@@ -466,6 +468,67 @@
             });
         });
     });
+
+
+
+    // Form validation
+document.addEventListener('DOMContentLoaded', function() {
+    const checkoutForm = document.getElementById('checkout-form');
+    
+    if (checkoutForm) {
+        checkoutForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            let isValid = true;
+            
+            // Validate address selection
+            const addressType = document.querySelector('.address-type-btn.active').dataset.target;
+            if (addressType === 'saved-addresses') {
+                // Check if any address radio is selected
+                const selectedAddress = document.querySelector('input[name="address_id"]:checked');
+                if (!selectedAddress) {
+                    alert('Please select a shipping address');
+                    isValid = false;
+                    return; // Stop further validation
+                }
+            } else {
+                // Validate new address form fields
+                const requiredFields = ['first_name', 'last_name', 'email', 'address1', 'city', 'state', 'zip', 'phone'];
+                for (const field of requiredFields) {
+                    const input = document.querySelector(`[name="${field}"]`);
+                    if (!input.value.trim()) {
+                        alert(`Please complete all required address fields`);
+                        input.focus();
+                        isValid = false;
+                        return; // Stop further validation
+                    }
+                }
+            }
+            
+            // Validate payment information
+            const paymentMethod = document.querySelector('input[name="payment_method"]:checked').value;
+            if (paymentMethod === 'credit_card') {
+                const cardFields = ['card_number', 'card_expiry', 'card_cvv'];
+                for (const field of cardFields) {
+                    const input = document.querySelector(`[name="${field}"]`);
+                    if (!input.value.trim()) {
+                        alert('Please complete all payment information');
+                        input.focus();
+                        isValid = false;
+                        return; // Stop further validation
+                    }
+                }
+            }
+            
+            // Submit form if everything is valid
+            if (isValid) {
+                this.submit();
+            }
+        });
+    } else {
+        console.error('Checkout form not found!');
+    }
+});
 
 </script>
 {% endblock %}
