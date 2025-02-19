@@ -367,7 +367,18 @@ OakTrek - {{ product_name }}
         line-height: 1.6;
         margin-bottom: 1rem;
     }
+
+    .size-validation-message {
+        color: #dc3545;
+        margin-top: 0.5rem;
+        font-size: 0.9rem;
+        display: none;
+    }
+
 </style>
+
+
+
 {% endblock %}
 
 {% block main_block %}
@@ -430,15 +441,20 @@ OakTrek - {{ product_name }}
                         {% endif %}
                         {% endfor %}
                     </div>
+                    <div id="sizeValidationMessage" class="size-validation-message">
+                        Please select a size first
+                    </div>
                 </div>
 
                 <!-- Add to Cart -->
 
-                <form action="{{ url_for('cart') }}" method="POST">
+                <form id="addToCartForm" action="{{ url_for('cart') }}" method="POST" onsubmit="return validateForm()">
                     <input type="hidden" name="product_name" value="{{ product_name }}">
                     <input type="hidden" name="price" value="{{ price }}">
                     <input type="hidden" name="quantity" value="1">
                     <input type="hidden" name="product_id" value="{{ id }}">
+                    <input type="hidden" name="selected_size" id="selectedSizeInput" value="">
+                    <input type="hidden" name="selected_color" id="selectedColorInput" value="Natural Black">
                     <button type="submit" class="btn btn-dark w-100 py-3 add-to-cart mb-4">Add to Cart</button>
                 </form>
 
@@ -903,6 +919,9 @@ OakTrek - {{ product_name }}
 
     function selectSize(size) {
         selectedSize = size;
+        document.getElementById('selectedSizeInput').value = size;
+        document.getElementById('sizeValidationMessage').style.display = 'none';
+        
         document.querySelectorAll('.size-button').forEach(btn => {
             btn.classList.remove('selected');
         });
@@ -912,6 +931,8 @@ OakTrek - {{ product_name }}
     // JavaScript for Color Selection
     function selectColor(color, element) {
         document.getElementById('selectedColor').textContent = color;
+        document.getElementById('selectedColorInput').value = color;
+        
         document.querySelectorAll('.color-swatch').forEach(swatch => {
             swatch.classList.remove('selected');
         });
@@ -938,5 +959,14 @@ OakTrek - {{ product_name }}
             });
         });
     });
+
+
+    function validateForm() {
+        if (!selectedSize) {
+            document.getElementById('sizeValidationMessage').style.display = 'block';
+            return false;
+        }
+        return true;
+    }   
 </script>
 {% endblock %}
