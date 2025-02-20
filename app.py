@@ -1,6 +1,8 @@
-from flask import Flask, render_template, redirect, url_for, request, flash, jsonify
+from flask import Flask, render_template, redirect, url_for, request, flash, jsonify, Blueprint
 from flask_sqlalchemy import SQLAlchemy
+from functools import wraps
 from flask_bcrypt import Bcrypt
+from werkzeug.utils import secure_filename
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 from datetime import datetime
 import os
@@ -9,15 +11,17 @@ app = Flask(__name__)
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 # Configuration
-app.config['SECRET_KEY'] = 'your_secret_key'  
+app.config['ADMIN_EMAILS'] = ['admin@example.com']  # List of admin email addresses
+app.config['SECRET_KEY'] = 'your_secret_key'  # Change this!
 app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///" + os.path.join(basedir, "default.db")
 app.config['SQLALCHEMY_BINDS'] = {
     'users': "sqlite:///" + os.path.join(basedir, "users.db"),
     'cart': "sqlite:///" + os.path.join(basedir, "cart.db"),
     'products': "sqlite:///" + os.path.join(basedir, "products.db"),
-    # 'address': "sqlite:///" + os.path.join(basedir, "address.db"),
-    # 'orders': "sqlite:///" + os.path.join(basedir, "orders.db")  
+    'address': "sqlite:///" + os.path.join(basedir, "address.db"),
+    'orders': "sqlite:///" + os.path.join(basedir, "orders.db")  # Added orders db as well since we have Order model
 }
+
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
@@ -28,6 +32,32 @@ login_manager = LoginManager(app)
 login_manager.login_view = 'login'
 login_manager.login_message_category = 'info'
 login_manager.login_message = 'Please log in to access this page.'
+
+admin = Blueprint('admin', __name__)
+
+
+ADMIN_USERS = {
+
+    'admin@example.com': {
+
+        'password': 'admin123'  # Password stored as plain text
+    }   
+}
+
+def admin_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if not current_user.is_authenticated or current_user.email not in app.config.get('ADMIN_EMAILS', []):
+            flash('You need administrator privileges to access this page.', 'danger')
+            return redirect(url_for('login'))
+        return f(*args, **kwargs)
+    return decorated_function
+
+UPLOAD_FOLDER = os.path.join(app.root_path, 'static', 'assets/products')
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -52,7 +82,7 @@ class Address(db.Model):
     name = db.Column(db.String(100), nullable=False)
     street = db.Column(db.String(100), nullable=False)
     city = db.Column(db.String(50), nullable=False)
-    state = db.Column(db.String(20), nullable=False)
+    state = db.Column(db.String(2), nullable=False)
     zipcode = db.Column(db.String(10), nullable=False)
     is_default = db.Column(db.Boolean, default=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
@@ -61,7 +91,6 @@ class Order(db.Model):
     __bind_key__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
     order_date = db.Column(db.DateTime, default=datetime.utcnow)
-    # product_name = db.Column(db.String(100), nullable=False)
     total_amount = db.Column(db.Float, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
@@ -80,7 +109,6 @@ class Product(db.Model):
     category = db.Column(db.String(50), nullable=False)
     gender = db.Column(db.String(10), nullable=False)
     price = db.Column(db.Float, nullable=False)
-    image_name = db.Column(db.String(100), nullable=False)
     image_1 = db.Column(db.String(100))
     image_2 = db.Column(db.String(100))
     image_3 = db.Column(db.String(100))
@@ -115,6 +143,30 @@ def get_cart_details():
     total = subtotal + tax
     
     return cart_with_details, subtotal, tax, total
+
+
+def save_product_images(form_data, product=None):
+    """Handle saving of product images"""
+    images = {}
+    main_image = request.files.get('image')
+    
+    if main_image and allowed_file(main_image.filename) and main_image.filename != '':
+        filename = secure_filename(main_image.filename)
+        img_path = os.path.join(UPLOAD_FOLDER, filename)
+        main_image.save(img_path)
+        images['image_1'] = filename
+    
+    # Handle additional images
+    for i in range(1, 6):
+        img_field = f'image_{i}'
+        img_file = request.files.get(img_field)
+        if img_file and allowed_file(img_file.filename) and img_file.filename != '':
+            filename = secure_filename(img_file.filename)
+            img_path = os.path.join(UPLOAD_FOLDER, filename)
+            img_file.save(img_path)
+            images[img_field] = filename
+    
+    return images
 
 # Authentication Routes
 @app.route('/register', methods=['GET', 'POST'])
@@ -294,7 +346,6 @@ def product_page(collection_name, product_name):
         "category": product.category,
         "gender": product.gender,
         "price": product.price,
-        "image_name": product.image_name,
         "image_1": product.image_1,
         "image_2": product.image_2,
         "image_3": product.image_3,
@@ -313,12 +364,7 @@ def cart():
         price = float(request.form.get("price"))
         quantity = int(request.form.get("quantity"))
         prod_item = Product.query.filter_by(product_name=product_name).first()
-        selected_size = request.form.get('selected_size')
         
-        if not selected_size:
-            flash('Please select a size before adding to cart', 'danger')
-            return redirect(request.referrer or url_for('index'))
-            
         if not prod_item:
             flash("Product not found!", "danger")
             return redirect(url_for("cart"))
@@ -531,7 +577,7 @@ def confirmation():
                 'quantity': cart_item.quantity,
                 'price': product.price,
                 'total': item_total,
-                'image': product.image_name
+                'image': product.image_1
             })
             subtotal += item_total
     
@@ -573,9 +619,204 @@ def confirmation():
         shipping_address=shipping_address
     )
 
+@admin.route('/dashboard')
+@login_required
+@admin_required
+def dashboard():
+    return render_template('dashboard.html')
+
+@admin.route('/products')
+@login_required
+@admin_required
+def products():
+    products = Product.query.all()
+    return render_template('adminProducts.html', products=products)
+
+@admin.route('/products/new', methods=['GET', 'POST'])
+@login_required
+@admin_required
+def add_product():
+    if request.method == 'POST':
+        # Extract form data
+        product_name = request.form.get('product_name')
+        category = request.form.get('category')
+        gender = request.form.get('gender')
+        price = float(request.form.get('price'))
+        
+        # Validate required fields
+        if not all([product_name, category, gender, price]):
+            flash('All required fields must be filled', 'danger')
+            return redirect(request.url)
+        
+        # Handle image uploads
+        main_image = request.files.get('image')
+        if not main_image or main_image.filename == '':
+            flash('Main product image is required', 'danger')
+            return redirect(request.url)
+        
+        # Save images and get paths
+        images = save_product_images(request.form)
+        
+        # Create product object
+        new_product = Product(
+            product_name=product_name,
+            category=category,
+            gender=gender,
+            price=price,
+            image_1=images.get('image_1'),
+            image_2=images.get('image_2'),
+            image_3=images.get('image_3'),
+            image_4=images.get('image_4'),
+            image_5=images.get('image_5')
+        )
+        
+        # Save to database
+        db.session.add(new_product)
+        db.session.commit()
+        
+        flash('Product added successfully!', 'success')
+        return redirect(url_for('admin.products'))
+    
+    return render_template('add_product.html')
+
+@admin.route('/products/<int:product_id>')
+@login_required
+@admin_required
+def view_product(product_id):
+    product = Product.query.get_or_404(product_id)
+    return render_template('view_product.html', product=product)
+
+# Edit product
+@admin.route('/products/<int:product_id>/edit', methods=['GET', 'POST'])
+@login_required
+@admin_required
+def edit_product(product_id):
+    product = Product.query.get_or_404(product_id)
+    
+    if request.method == 'POST':
+        # Update product with form data
+        product.product_name = request.form.get('product_name')
+        product.category = request.form.get('category')
+        product.gender = request.form.get('gender')
+        product.price = float(request.form.get('price'))
+        
+        # Handle image uploads - only update if new images provided
+        try:
+            # Handle main image
+            main_image = request.files.get('image')
+            if main_image and allowed_file(main_image.filename) and main_image.filename != '':
+                # Delete old image if it exists
+                if product.image_1:
+                    old_image_path = os.path.join(UPLOAD_FOLDER, product.image_1)
+                    if os.path.exists(old_image_path):
+                        os.remove(old_image_path)
+                    
+                # Save new image
+                filename = secure_filename(main_image.filename)
+                main_image.save(os.path.join(UPLOAD_FOLDER, filename))
+                product.image_1 = filename
+            
+            # Handle additional images
+            for i in range(2, 6):
+                img_field = f'image_{i}'
+                img_file = request.files.get(img_field)
+                if img_file and allowed_file(img_file.filename) and img_file.filename != '':
+                    # Delete old image if it exists
+                    old_img = getattr(product, img_field)
+                    if old_img:
+                        old_img_path = os.path.join(UPLOAD_FOLDER, old_img)
+                        if os.path.exists(old_img_path):
+                            os.remove(old_img_path)
+                    
+                    # Save new image
+                    filename = secure_filename(img_file.filename)
+                    img_file.save(os.path.join(UPLOAD_FOLDER, filename))
+                    setattr(product, img_field, filename)
+        
+        except FileNotFoundError as e:
+            # Log the error but continue with product update
+            app.logger.error(f"File not found: {e}")
+            flash('Product updated, but had trouble managing some image files', 'warning')
+        except Exception as e:
+            app.logger.error(f"Error handling images: {e}")
+            flash('Product updated, but there was an issue with image processing', 'warning')
+        
+        # Commit database changes
+        db.session.commit()
+        flash('Product updated successfully!', 'success')
+        return redirect(url_for('admin.products'))
+    
+    return render_template('edit_product.html', product=product)
+
+@admin.route('/products/<int:product_id>/delete', methods=['POST'])
+@login_required
+@admin_required
+def delete_product(product_id):
+    product = Product.query.get_or_404(product_id)
+    
+    # Optionally remove image files from filesystem
+    try:
+        if product.image_1:
+            os.remove(os.path.join(UPLOAD_FOLDER, product.image_1))
+        for i in range(1, 6):
+            img_field = f'image_{i}'
+            img_path = getattr(product, img_field)
+            if img_path:
+                os.remove(os.path.join(UPLOAD_FOLDER, img_path))
+    except Exception as e:
+        # Log the error but continue with deletion
+        app.logger.error(f"Error removing image files: {e}")
+    
+    # Delete from database
+    db.session.delete(product)
+    db.session.commit()
+    
+    flash('Product deleted successfully!', 'success')
+    return redirect(url_for('admin.products'))
+
+# Bulk operations
+@admin.route('/products/bulk-delete', methods=['POST'])
+@login_required
+@admin_required
+def bulk_delete_products():
+    product_ids = request.form.getlist('product_ids')
+    
+    if not product_ids:
+        flash('No products selected', 'warning')
+        return redirect(url_for('admin.products'))
+    
+    # Delete selected products
+    for product_id in product_ids:
+        product = Product.query.get(product_id)
+        if product:
+            db.session.delete(product)
+    
+    db.session.commit()
+    flash(f'{len(product_ids)} products deleted successfully!', 'success')
+    return redirect(url_for('admin.products'))
+
+@app.route('/admin-signin', methods=['POST'])
+def admin_signin():
+    data = request.json
+    email = data.get('email')
+    password = data.get('password')
+
+    if email in ADMIN_USERS:
+        stored_password = ADMIN_USERS[email]['password']
+        if password == stored_password:
+            # Authentication successful
+            app.config['ADMIN_EMAILS'].append(current_user.email)
+            return jsonify({'success': True})   
+            return(redirect(url_for('dashboard')))
+    
+    # Authentication failed
+    return jsonify({'success': False}), 401
+
 # Initialize Database
 with app.app_context():
     db.create_all()
+
+app.register_blueprint(admin)
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -1,12 +1,14 @@
-<head>
-    <title>My Profile - Oaktrek</title>
-    <link rel="icon" type="image/x-icon" href="/static/assets/logos/leaf.png">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Vollkorn:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/header.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
-</head>
+{% block head_block %}
+    
+<title>My Profile - Oaktrek</title>
+<link rel="icon" type="image/x-icon" href="/static/assets/logos/leaf.png">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Vollkorn:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/header.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+{% endblock %}
+
 {% block styles %}
 <style>
     :root {
@@ -167,6 +169,8 @@
         <div class="header-actions">
             <button class="btn-edit" onclick="window.location.href='/'">Home</button>
             <button class="logout-btn" onclick="handleLogout()">Logout</button>
+            <a href="#" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#adminSigninModal">Sign in as
+                Admin</a>
         </div>
     </div>
 
@@ -189,16 +193,6 @@
                 </div>
             </div>
         </div>
-        <!-- <div class="info-row">
-            <div class="info-label">Phone</div>
-            <div class="info-value">
-                {% if user.phone %}
-                {{ user.phone }}
-                {% else %}
-                <a href="#" class="add-link">Add telephone number</a>
-                {% endif %}
-            </div>
-        </div> -->
         <button class="btn-edit" data-bs-toggle="modal" data-bs-target="#editProfileModal">Edit Profile</button>
     </div>
 
@@ -244,7 +238,6 @@
         <div class="order-item">
             <div class="order-date">Ordered on: {{ order.order_date.strftime('%B %d, %Y %I:%M %p') }}</div>
             <div class="order-total">Total: ${{ order.total_amount }}</div>
-            <!-- Add more order details here as needed -->
         </div>
         {% endfor %}
         {% else %}
@@ -300,6 +293,35 @@
                             <input type="password" class="form-control" id="new-password" name="new_password" required>
                         </div>
                         <button type="submit" class="btn btn-primary">Change Password</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Sign In Modal -->
+    <div class="modal fade" id="adminSigninModal" tabindex="-1" aria-labelledby="adminSigninModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="adminSigninModalLabel">Admin Sign In</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="adminSigninForm">
+                        <div class="mb-3">
+                            <label for="adminEmail" class="form-label">Email address</label>
+                            <input type="email" class="form-control" id="adminEmail" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="adminPassword" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="adminPassword" required>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Sign In</button>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -482,18 +504,68 @@
         }
     }
 
-    // Add click handlers for the modal buttons
+    // Document ready event handler
     document.addEventListener('DOMContentLoaded', function () {
         const changePasswordBtn = document.querySelector('button[data-bs-target="#changePasswordModal"]');
         if (changePasswordBtn) {
+            // Add any specific handlers if needed
         }
 
         const addAddressBtn = document.querySelector('button[data-bs-target="#addAddressModal"]');
         if (addAddressBtn) {
+            // Add any specific handlers if needed
         }
 
         const editProfileBtn = document.querySelector('button[data-bs-target="#editProfileModal"]');
+        if (editProfileBtn) {
+            // Add any specific handlers if needed
+        }
+
+        // Admin sign-in form submission
+        const adminSigninForm = document.getElementById('adminSigninForm');
+        adminSigninForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+            const email = document.getElementById('adminEmail').value;
+            const password = document.getElementById('adminPassword').value;
+
+            fetch('/admin-signin', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email, password }),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Success!',
+                            text: 'Admin sign-in successful!'
+                        }).then(() => {
+                            const modal = bootstrap.Modal.getInstance(document.getElementById('adminSigninModal'));
+                            modal.hide();
+                            adminSigninForm.reset();
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'Invalid credentials. Please try again.'
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'An error occurred. Please try again.'
+                    });
+                });
+        });
     });
 </script>
+
 
 {% endblock %}
