@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block main_block %}
+<div class="container mt-4">
+    <h1>Admin Dashboard</h1>
+    <div class="row mt-4">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Product Management</h5>
+                    <p class="card-text">Manage your store products</p>
+                    <a href="{{ url_for('admin.products') }}" class="btn btn-primary">View Products</a>
+                </div>
+            </div>
+        </div>
+        <!-- Add more admin sections as needed -->
+    </div>
+</div>
+{% endblock %}
