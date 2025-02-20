@@ -228,11 +228,18 @@ def logout():
     return redirect(url_for('login'))
 
 # Profile Management Routes
+# @app.route('/profile')
+# @login_required
+# def profile():
+#     orders = Order.query.filter_by(user_id=current_user.id).all()
+#     return render_template('profile.html', user=current_user, orders=orders)
+
+
 @app.route('/profile')
 @login_required
 def profile():
     orders = Order.query.filter_by(user_id=current_user.id).all()
-    return render_template('profile.html', user=current_user, orders=orders)
+    return render_template('profile.html', user=current_user, orders=orders, app=app)
 
 @app.route('/change_password', methods=['POST'])
 @login_required
